@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {offers} from './mocks/offers';
 import App from './components/app/app';
-
-const numberRent = 666;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App numberRent={numberRent} />
+    <App offers = {offers} />
   </React.StrictMode>,
   document.getElementById('root'));
