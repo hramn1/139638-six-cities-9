@@ -6,23 +6,28 @@ import Property from '../property/property';
 import Error404 from '../error404/error404';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
+import {OffersType} from '../../mocks/offers';
 
-function App({numberRent}: {numberRent:number}): JSX.Element {
+function App({offers}: {offers:OffersType}): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route index
-          element = {<Main numberRent={numberRent}/>}
+          element = {<Main offers={offers}/>}
         />
         <Route path={Pages.Favor}
           element={
             <PrivateRoute>
-              <Favorites/>
+              <Favorites offers={offers} />
             </PrivateRoute>
           }
         />
         <Route path={Pages.Room}
-          element={<Property/>}
+          element={
+            <Property
+              offers={offers}
+            />
+          }
         />
         <Route path='*'
           element={<Error404/>}
