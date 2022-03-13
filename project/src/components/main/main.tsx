@@ -3,7 +3,7 @@ import Header from '../header/header';
 import {Link} from 'react-router-dom';
 import {OffersType} from '../../mocks/offers';
 import ListProperty from '../list-property/list-property';
-
+import MapW from '../map/map';
 function Main({offers}: {offers:OffersType}): JSX.Element {
   return (
     <React.Fragment>
@@ -88,7 +88,9 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
                 </div>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <section className="cities__map map">
+                  <MapW offers = {offers} />
+                </section>
               </div>
             </div>
           </div>
