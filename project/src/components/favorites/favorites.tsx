@@ -3,20 +3,20 @@ import {Link} from 'react-router-dom';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import {OffersType} from '../../mocks/offers';
-import {setRating} from '../../functions';
+import {getRating} from '../../functions';
 import Pages from '../../const';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
 function Favorites({offers}: {offers:OffersType}): JSX.Element {
-  const offerFavorit = offers.filter((it)=> it.isFavorite);
+  const favoriteOffers = offers.filter((offer)=> offer.isFavorite);
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
         <svg xmlns="http://www.w3.org/2000/svg"><symbol id="icon-arrow-select" viewBox="0 0 7 4"><path fillRule="evenodd" clipRule="evenodd" d="M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z" /></symbol><symbol id="icon-bookmark" viewBox="0 0 17 18"><path d="M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z" /></symbol><symbol id="icon-star" viewBox="0 0 13 12"><path fillRule="evenodd" clipRule="evenodd" d="M6.5 9.644L10.517 12 9.451 7.56 13 4.573l-4.674-.386L6.5 0 4.673 4.187 0 4.573 3.549 7.56 2.483 12 6.5 9.644z" /></symbol></svg>
       </div>
-      <div className={`page ${offerFavorit.length === 0 ? 'page--favorites-empty' : ''}`}>
+      <div className={`page ${favoriteOffers.length === 0 ? 'page--favorites-empty' : ''}`}>
         <Header/>
-        {offerFavorit.length !== 0 ?
+        {favoriteOffers.length !== 0 ?
           <main className="page__main page__main--favorites">
             <div className="page__favorites-container container">
               <section className="favorites">
@@ -31,20 +31,20 @@ function Favorites({offers}: {offers:OffersType}): JSX.Element {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {offerFavorit.map((it) => (
-                        <article key={it.id} className="favorites__card place-card">
+                      {favoriteOffers.map((offer) => (
+                        <article key={offer.id} className="favorites__card place-card">
                           <div className="place-card__mark">
                             <span>Premium</span>
                           </div>
                           <div className="favorites__image-wrapper place-card__image-wrapper">
                             <Link to="/">
-                              <img className="place-card__image" src={it.previewImage} alt="Place" width={150} height={110}/>
+                              <img className="place-card__image" src={offer.previewImage} alt="Place" width={150} height={110}/>
                             </Link>
                           </div>
                           <div className="favorites__card-info place-card__info">
                             <div className="place-card__price-wrapper">
                               <div className="place-card__price">
-                                <b className="place-card__price-value">€{it.price}</b>
+                                <b className="place-card__price-value">€{offer.price}</b>
                                 <span className="place-card__price-text">/&nbsp;night</span>
                               </div>
                               <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
@@ -56,14 +56,14 @@ function Favorites({offers}: {offers:OffersType}): JSX.Element {
                             </div>
                             <div className="place-card__rating rating">
                               <div className="place-card__stars rating__stars">
-                                <span style={{width: `${setRating(it.rating)}%`}}></span>
+                                <span style={{width: `${getRating(offer.rating)}%`}}></span>
                                 <span className="visually-hidden">Rating</span>
                               </div>
                             </div>
                             <h2 className="place-card__name">
-                              <Link to={`${Pages.Room}=${it.id}`}>{it.title}</Link>
+                              <Link to={`${Pages.Room}=${offer.id}`}>{offer.title}</Link>
                             </h2>
-                            <p className="place-card__type">{it.type}</p>
+                            <p className="place-card__type">{offer.type}</p>
                           </div>
                         </article>
                       ))}

@@ -1,1 +1,1 @@
-export const setRating = (rating: number): number => rating/5 * 100;
+export const getRating = (rating: number): number => rating/5 * 100;
