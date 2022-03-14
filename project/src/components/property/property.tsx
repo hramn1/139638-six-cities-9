@@ -3,7 +3,7 @@ import Header from '../header/header';
 import {Link, useParams} from 'react-router-dom';
 import FormComment from '../form-comment/form-comment';
 import {OffersType} from '../../mocks/offers';
-import {setRating} from '../../functions';
+import {getRating} from '../../functions';
 function Property({offers}: {offers:OffersType}): JSX.Element {
   const params = useParams();
   const numberPage = Number(params['id']?.match(/\d+/g));
@@ -49,7 +49,7 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{width: `${setRating(offer.rating)}%`}} />
+                    <span style={{width: `${getRating(offer.rating)}%`}} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">4.8</span>
