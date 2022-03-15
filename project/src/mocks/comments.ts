@@ -1,4 +1,4 @@
-export type Comment = {
+export type CommentType = {
   id: number,
   user: {
     id: number,
@@ -10,7 +10,7 @@ export type Comment = {
   comment: string,
   date: string,
 }
-export const comments: Comment[] = [
+export const comments: CommentType[] = [
   {
     'id': 1,
     'user': {
@@ -22,5 +22,18 @@ export const comments: Comment[] = [
     'rating': 4,
     'comment': 'I stayed here for one night and it was an unpleasant experience.',
     'date': '2022-02-15T21:48:13.665Z',
-  }
+  },
+  {
+    'id': 1,
+    'user': {
+      'id': 18,
+      'isPro': false,
+      'name': 'Jane',
+      'avatarUrl': 'https://9.react.pages.academy/static/avatar/6.jpg',
+    },
+    'rating': 4,
+    'comment': 'I stayed here for one night and it was an unpleasant experience.',
+    'date': '2022-02-15T21:28:13.665Z',
+  },
+
 ]

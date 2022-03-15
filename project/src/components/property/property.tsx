@@ -4,6 +4,8 @@ import {Link, useParams} from 'react-router-dom';
 import FormComment from '../form-comment/form-comment';
 import {OffersType} from '../../mocks/offers';
 import {getRating} from '../../functions';
+import ReviewsList from '../reviews-list/reviews-list';
+import {comments} from '../../mocks/comments';
 function Property({offers}: {offers:OffersType}): JSX.Element {
   const params = useParams();
   const numberPage = Number(params['id']?.match(/\d+/g));
@@ -100,7 +102,9 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-
+                  <ReviewsList
+                    comments = {comments}
+                  />
                   <FormComment/>
                 </section>
               </div>
