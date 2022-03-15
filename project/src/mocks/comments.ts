@@ -31,9 +31,8 @@ export const comments: CommentType[] = [
       'name': 'Jane',
       'avatarUrl': 'https://9.react.pages.academy/static/avatar/6.jpg',
     },
-    'rating': 4,
+    'rating': 3,
     'comment': 'I stayed here for one night and it was an unpleasant experience.',
     'date': '2022-02-15T21:28:13.665Z',
   },
-
-]
+];
