@@ -1,11 +1,14 @@
-import {City} from '../../const';
+import {Cities} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
+import {setCity} from '../actions';
+
 const initialState = {
-  city: City.Paris
+  city: Cities.Paris,
 }
-export const setCityReducer = createReducer(initialState, (builder) => {
+const reducer  = createReducer(initialState, (builder) => {
   builder
-    .addCase(incrementStep, (state) => {
-      state.step = state.step + STEP_COUNT;
-    });
+  .addCase(setCity, (state, action) => {
+    state.city = action.payload
+  })
 })
+export  {reducer };

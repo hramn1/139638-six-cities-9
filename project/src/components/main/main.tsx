@@ -1,10 +1,20 @@
 import React from 'react';
 import Header from '../header/header';
 import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {setCity} from '../../store/actions';
 import {OffersType} from '../../mocks/offers';
 import ListProperty from '../list-property/list-property';
 import MapW from '../map/map';
+import {Cities, citiesList}  from '../../const'
 function Main({offers}: {offers:OffersType}): JSX.Element {
+    const {city} = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const ff = (evt) =>{
+      const gg = evt.target.innerText
+      dispatch(setCity(gg))
+    }
+    console.log(citiesList)
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -29,37 +39,20 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Paris</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Cologne</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Brussels</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item tabs__item--active" to="/">
-                    <span>Amsterdam</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Hamburg</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Dusseldorf</span>
-                  </Link>
-                </li>
+              <ul className="locations__list tabs__list"
+
+              >
+              {citiesList.map((city)=>{
+                return(
+                  <li
+                  onClick={ff}
+                   className="locations__item">
+                    <Link className="locations__item-link tabs__item" to="/">
+                      <span>{city}</span>
+                    </Link>
+                  </li>
+                )
+              })}
               </ul>
             </section>
           </div>
