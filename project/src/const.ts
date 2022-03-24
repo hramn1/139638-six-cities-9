@@ -27,10 +27,8 @@ export enum Cities {
   Hamburg='Hamburg'
 }
 
-export const citiesList: {
-  key: string;
-  value: string;
-}[] = Object.entries(Cities)
+export const citiesList: string[] = Object.entries(Cities)
   .map(([value]) => (value));
+
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 export default Pages;

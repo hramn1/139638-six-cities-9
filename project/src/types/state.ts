@@ -1,5 +1,9 @@
 import {store} from '../store/store';
 
+export type TypeState = {
+  cityState: string | null
+}
+
 export type State = ReturnType<typeof store.getState>;
 
-export type Dispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;

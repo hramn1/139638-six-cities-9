@@ -1,14 +1,14 @@
 import {Cities} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity} from '../actions';
-
-const initialState = {
-  city: Cities.Paris,
+import {TypeState} from '../../types/state'
+const initialState: TypeState = {
+  cityState: Cities.Paris,
 }
-const reducer  = createReducer(initialState, (builder) => {
+const reducer = createReducer(initialState, (builder) => {
   builder
   .addCase(setCity, (state, action) => {
-    state.city = action.payload
+    state.cityState = action.payload
   })
 })
-export  {reducer };
+export  {reducer};
