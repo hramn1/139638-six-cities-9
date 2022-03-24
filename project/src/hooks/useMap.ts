@@ -1,21 +1,19 @@
-import React, {useEffect, useState, MutableRefObject} from 'react';
+import {useEffect, useState, MutableRefObject} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Map} from 'leaflet';
-import {URL_MARKER_DEFAULT} from '../const';
+import {Location} from '../mocks/offers';
 
-function useMap(mapRef: MutableRefObject<HTMLElement | null>, cords) {
-
-	const [map, setMap] = useState<Map | null>(null);
-
-	React.useEffect(() => {
+function useMap(mapRef: MutableRefObject<HTMLElement | null>, cityMap: Location) {
+  const [map, setMap] = useState<Map | null>(null);
+  useEffect(() => {
     if (mapRef.current !== null && map === null) {
       const instance = leaflet.map(mapRef.current, {
         center: {
-          lat: cords[0].latitude,
-          lng: cords[0].longitude,
+          lat: cityMap.latitude,
+          lng: cityMap.longitude,
         },
-        zoom: cords[0].zoom,
+        zoom: cityMap.zoom,
       });
       leaflet
         .tileLayer(
@@ -27,7 +25,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, cords) {
         .addTo(instance);
       setMap(instance);
     }
-  }, [mapRef, map, cords]);
+  }, [mapRef, map, cityMap]);
 
   return map;
 }

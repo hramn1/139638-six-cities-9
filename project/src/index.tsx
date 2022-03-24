@@ -8,8 +8,9 @@ import {store} from './store/store';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App
-      offers = {offers} />
+      <App
+        offers = {offers}
+      />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

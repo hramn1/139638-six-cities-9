@@ -10,7 +10,6 @@ import FavoritesEmpty from '../favorites-empty/favorites-empty';
 function Favorites({offers}: {offers:OffersType}): JSX.Element {
   const favoriteOffers = offers.filter((offer)=> offer.isFavorite);
   const cities = Array.from(new Set(favoriteOffers.map((city) => city.city.name)));
-  console.log(cities)
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -34,7 +33,7 @@ function Favorites({offers}: {offers:OffersType}): JSX.Element {
                         </div>
                       </div>
                       <div className="favorites__places">
-                        {favoriteOffers.filter((offer) => offer.city.name == city).map((offer) => (
+                        {favoriteOffers.filter((offer) => offer.city.name === city).map((offer) => (
                           <article key={offer.id} className="favorites__card place-card">
                             <div className="place-card__mark">
                               <span>Premium</span>
@@ -42,7 +41,8 @@ function Favorites({offers}: {offers:OffersType}): JSX.Element {
                             <div className="favorites__image-wrapper place-card__image-wrapper">
                               <Link to="/">
                                 <img className="place-card__image" src={offer.previewImage} alt="Place" width={150}
-                                     height={110}/>
+                                  height={110}
+                                />
                               </Link>
                             </div>
                             <div className="favorites__card-info place-card__info">
@@ -53,7 +53,8 @@ function Favorites({offers}: {offers:OffersType}): JSX.Element {
                                 </div>
                                 <button
                                   className="place-card__bookmark-button place-card__bookmark-button--active button"
-                                  type="button">
+                                  type="button"
+                                >
                                   <svg className="place-card__bookmark-icon" width={18} height={19}>
                                     <use xlinkHref="#icon-bookmark"/>
                                   </svg>

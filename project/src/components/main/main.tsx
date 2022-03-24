@@ -5,17 +5,18 @@ import {setCity} from '../../store/actions';
 import {OffersType} from '../../mocks/offers';
 import ListProperty from '../list-property/list-property';
 import MapW from '../map/map';
-import {useAppSelector, useAppDispatch} from '../../hooks/index'
-import {citiesList}  from '../../const'
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
+import {citiesList}  from '../../const';
+
 function Main({offers}: {offers:OffersType}): JSX.Element {
-    const {cityState} = useAppSelector((state) => state);
-    const dispatch = useAppDispatch();
-    const handleClick = (evt: React.SyntheticEvent) =>{
-      const htmlElCity = evt.target as HTMLElement;
-      const cityTitle = htmlElCity.textContent;
-      dispatch(setCity(cityTitle))
-    }
-    const CityOffers = offers.filter((offer)=>offer.city.name === cityState)
+  const {cityState} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const handleClick = (evt: React.SyntheticEvent) =>{
+    const htmlElCity = evt.target as HTMLElement;
+    const cityTitle = htmlElCity.textContent;
+    dispatch(setCity(cityTitle));
+  };
+  const CityOffers = offers.filter((offer)=>offer.city.name === cityState);
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -41,18 +42,17 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
           <div className="tabs">
             <section className="locations container">
               <ul className="locations__list tabs__list">
-              {citiesList.map((city)=>{
-                return(
+                {citiesList.map((city)=> (
                   <li
                     key={city}
-                  onClick={handleClick}
-                   className="locations__item">
-                    <Link className={`${(city===cityState) ? `locations__item-link tabs__item tabs__item--active`:`locations__item-link tabs__item`}`} to="/">
+                    onClick={handleClick}
+                    className="locations__item"
+                  >
+                    <Link className={`${(city===cityState) ? 'locations__item-link tabs__item tabs__item--active':'locations__item-link tabs__item'}`} to='/'>
                       <span>{city}</span>
                     </Link>
                   </li>
-                )
-              })}
+                ))}
               </ul>
             </section>
           </div>
@@ -82,9 +82,7 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapW offers = {CityOffers}
-                        cityMap = {cityState}
-                   />
+                  <MapW offers = {CityOffers} />
                 </section>
               </div>
             </div>

@@ -30,6 +30,10 @@ export type OffersType = {
   location: Location,
   id: number,
 }[]
+export interface CityName extends OffersType   {
+  cityMap: string | null,
+}
+
 export const points: Location[] = [
   {
     'latitude': 52.3909553943508,
