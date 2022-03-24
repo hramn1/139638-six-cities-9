@@ -14,6 +14,7 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
   const [offer] = offers.filter((it)=>
     it.id === numberPage,
   );
+  console.log(offer)
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>

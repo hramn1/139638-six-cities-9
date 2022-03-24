@@ -16,7 +16,6 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
       dispatch(setCity(cityTitle))
     }
     const CityOffers = offers.filter((offer)=>offer.city.name === cityState)
-  console.log(CityOffers)
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -83,7 +82,9 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapW offers = {offers} />
+                  <MapW offers = {CityOffers}
+                        cityMap = {cityState}
+                   />
                 </section>
               </div>
             </div>
