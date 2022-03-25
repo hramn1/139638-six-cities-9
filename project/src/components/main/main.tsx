@@ -1,10 +1,22 @@
 import React from 'react';
 import Header from '../header/header';
 import {Link} from 'react-router-dom';
+import {setCity} from '../../store/actions';
 import {OffersType} from '../../mocks/offers';
 import ListProperty from '../list-property/list-property';
 import MapW from '../map/map';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
+import {citiesList}  from '../../const';
+
 function Main({offers}: {offers:OffersType}): JSX.Element {
+  const {cityState} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const handleClick = (evt: React.SyntheticEvent) =>{
+    const htmlElCity = evt.target as HTMLElement;
+    const cityTitle = htmlElCity.textContent;
+    dispatch(setCity(cityTitle));
+  };
+  const CityOffers = offers.filter((offer)=>offer.city.name === cityState);
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -30,36 +42,17 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
           <div className="tabs">
             <section className="locations container">
               <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Paris</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Cologne</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Brussels</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item tabs__item--active" to="/">
-                    <span>Amsterdam</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Hamburg</span>
-                  </Link>
-                </li>
-                <li className="locations__item">
-                  <Link className="locations__item-link tabs__item" to="/">
-                    <span>Dusseldorf</span>
-                  </Link>
-                </li>
+                {citiesList.map((city)=> (
+                  <li
+                    key={city}
+                    onClick={handleClick}
+                    className="locations__item"
+                  >
+                    <Link className={`${(city===cityState) ? 'locations__item-link tabs__item tabs__item--active':'locations__item-link tabs__item'}`} to='/'>
+                      <span>{city}</span>
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </section>
           </div>
@@ -67,7 +60,7 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+                <b className="places__found">{CityOffers.length} places to stay in {cityState}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by </span>
                   <span className="places__sorting-type" tabIndex={0}>
@@ -84,12 +77,12 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <ListProperty offers = {offers} />
+                  <ListProperty offers = {CityOffers} />
                 </div>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapW offers = {offers} />
+                  <MapW offers = {CityOffers} />
                 </section>
               </div>
             </div>

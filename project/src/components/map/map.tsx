@@ -1,49 +1,27 @@
 import React from 'react';
 import {OffersType} from '../../mocks/offers';
-import {points} from '../../mocks/offers';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {Map} from 'leaflet';
+import useMap from '../../hooks/useMap';
 import {URL_MARKER_DEFAULT} from '../../const';
 
 
 function MapW ({offers}: {offers:OffersType}) {
   const mapRef = React.useRef(null);
-  const cords = offers.map((cord) => cord.city.location);
-
-  const [map, setMap] = React.useState<Map | null>(null);
-
+  const cityMap = offers.map((cord) => cord.city.location)[0];
+  const cords = offers.map((cord) => cord.location);
+  const map = useMap(mapRef, cityMap);
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
 
-  React.useEffect(() => {
-    if (mapRef.current !== null && map === null) {
-      const instance = leaflet.map(mapRef.current, {
-        center: {
-          lat: cords[5].latitude,
-          lng: cords[5].longitude,
-        },
-        zoom: cords[5].zoom,
-      });
-      leaflet
-        .tileLayer(
-          'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-          {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-          },
-        )
-        .addTo(instance);
-      setMap(instance);
-    }
-  }, [mapRef, map, cords]);
-
 
   React.useEffect(() => {
-    if (map) {
-      points.forEach((point) => {
+    if (map && cityMap) {
+      map.setView(new leaflet.LatLng(cityMap.latitude, cityMap.longitude), cityMap.zoom);
+      cords.forEach((point) => {
         leaflet
           .marker({
             lat: point.latitude,
@@ -54,7 +32,7 @@ function MapW ({offers}: {offers:OffersType}) {
           .addTo(map);
       });
     }
-  }, [map, defaultCustomIcon]);
+  }, [mapRef, map, cityMap, cords, defaultCustomIcon]);
 
   return(
     <div

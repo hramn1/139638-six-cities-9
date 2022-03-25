@@ -30,6 +30,10 @@ export type OffersType = {
   location: Location,
   id: number,
 }[]
+export interface CityName extends OffersType   {
+  cityMap: string | null,
+}
+
 export const points: Location[] = [
   {
     'latitude': 52.3909553943508,
@@ -80,7 +84,7 @@ export const offers: OffersType = [
       'https://9.react.pages.academy/static/hotel/5.jpg',
     ],
     'title': 'The house among olive ',
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'rating': 3.5,
     'type': 'house',
@@ -140,7 +144,7 @@ export const offers: OffersType = [
       'https://9.react.pages.academy/static/hotel/2.jpg',
     ],
     'title': 'Tile House',
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 3.8,
     'type': 'apartment',

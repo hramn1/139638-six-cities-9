@@ -14,6 +14,9 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
   const [offer] = offers.filter((it)=>
     it.id === numberPage,
   );
+  const offersNearby = offers.filter((offerNearby)=> (
+    offerNearby.city.name === offer.city.name
+  ));
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -112,14 +115,14 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
               </div>
             </div>
             <section className="property__map map">
-              <MapW offers = {offers} />
+              <MapW offers = {offersNearby} />
             </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <ListProperty offers = {offers.slice(0,3)} />
+                <ListProperty offers = {offersNearby.slice(0,3)} />
               </div>
             </section>
           </div>
