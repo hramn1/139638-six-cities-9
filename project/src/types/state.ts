@@ -1,7 +1,8 @@
 import {store} from '../store/store';
 
 export type TypeState = {
-  cityState: string | null
+  cityState: string | null,
+  sortState: string | null
 }
 
 export type State = ReturnType<typeof store.getState>;
