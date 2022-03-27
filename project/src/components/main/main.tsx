@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Header from '../header/header';
 import {Link} from 'react-router-dom';
 import {setCity} from '../../store/actions';
@@ -19,8 +19,8 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
     const cityTitle = htmlElCity.textContent;
     dispatch(setCity(cityTitle));
   };
-  const CityOffers = offers.filter((offer)=>offer.city.name === cityState);
-  const sortOffers = getSorting(sortState,CityOffers);
+  const cityOffers = offers.filter((offer)=>offer.city.name === cityState);
+  const sortOffers = getSorting(sortState,cityOffers);
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -64,10 +64,9 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{CityOffers.length} places to stay in {cityState}</b>
-
+                <b className="places__found">{cityOffers.length} places to stay in {cityState}</b>
                 <SortList
-                  offers = {CityOffers}
+                  sortName = {sortState}
                 />
                 <div className="cities__places-list places__list tabs__content">
                   <ListProperty offers = {sortOffers} />
@@ -75,7 +74,8 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapW offers = {CityOffers}
+                  <MapW
+                    offers = {cityOffers}
                   />
                 </section>
               </div>

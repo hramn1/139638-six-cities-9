@@ -11,11 +11,11 @@ import ListProperty from '../list-property/list-property';
 function Property({offers}: {offers:OffersType}): JSX.Element {
   const params = useParams();
   const numberPage = Number(params['id']?.match(/\d+/g));
-  const [offer] = offers.filter((it)=>
+  const offer = offers.find((it)=>
     it.id === numberPage,
   );
   const offersNearby = offers.filter((offerNearby)=> (
-    offerNearby.city.name === offer.city.name
+    offerNearby.city.name === offer?.city.name
   ));
   return (
     <React.Fragment>
@@ -28,7 +28,7 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {offer.images.slice(0,6).map((it)=> (
+                {offer?.images.slice(0,6).map((it)=> (
                   <div
                     key={it}
                     className="property__image-wrapper"
@@ -45,7 +45,7 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                 </div>
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
-                    {offer.title}
+                    {offer?.title}
                   </h1>
                   <button className="property__bookmark-button button" type="button">
                     <svg className="property__bookmark-icon" width={31} height={33}>
@@ -56,30 +56,30 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{width: `${getRating(offer.rating)}%`}} />
+                    <span style={{width: `${getRating(offer?.rating)}%`}} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">4.8</span>
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {offer.type}
+                    {offer?.type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
-                    {offer.bedrooms} Bedrooms
+                    {offer?.bedrooms} Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
-                    Max {offer.maxAdults} adults
+                    Max {offer?.maxAdults} adults
                   </li>
                 </ul>
                 <div className="property__price">
-                  <b className="property__price-value">€{offer.price}</b>
+                  <b className="property__price-value">€{offer?.price}</b>
                   <span className="property__price-text">&nbsp;night</span>
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&lsquo;s inside</h2>
                   <ul className="property__inside-list">
-                    {offer.goods.map((it)=> (
+                    {offer?.goods.map((it)=> (
                       <li key={it} className="property__inside-item">
                         {it}
                       </li>
@@ -90,19 +90,19 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
                     <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                      <img className="property__avatar user__avatar" src={offer.host.avatarUrl} alt="Host avatar" width={74} height={74} />
+                      <img className="property__avatar user__avatar" src={offer?.host.avatarUrl} alt="Host avatar" width={74} height={74} />
                     </div>
                     <span className="property__user-name">
-                      {offer.host.name}
+                      {offer?.host.name}
                     </span>
-                    {offer.host.isPro ?
+                    {offer?.host.isPro ?
                       <span className="property__user-status">
                       Pro
                       </span> : null}
                   </div>
                   <div className="property__description">
                     <p className="property__text">
-                      {offer.description}
+                      {offer?.description}
                     </p>
                   </div>
                 </div>
