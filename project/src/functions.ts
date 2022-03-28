@@ -15,15 +15,15 @@ export const getNormalDate = (date: string) =>{
 export const getSorting = (sort: string | null, offers: OffersType)=>{
   switch (sort){
     case 'Price: high to low':
-      offers.sort((a,b)=>b.price-a.price);
+      return [...offers].sort((a,b)=>b.price-a.price);
       break;
     case 'Price: low to high':
-      offers.sort((a,b)=>a.price-b.price);
+      return [...offers].sort((a,b)=>a.price-b.price);
       break;
     case 'Top rated first':
-      offers.sort((a,b)=>b.rating-a.rating);
+      return [...offers].sort((a,b)=>b.rating-a.rating);
       break;
     default:
+      return offers;
   }
-  return offers;
 };

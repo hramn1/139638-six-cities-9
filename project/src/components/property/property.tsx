@@ -8,6 +8,8 @@ import ReviewsList from '../reviews-list/reviews-list';
 import {comments} from '../../mocks/comments';
 import MapW from '../map/map';
 import ListProperty from '../list-property/list-property';
+import {MAX_IMAGES_PER_PROPERTY} from '../../const';
+
 function Property({offers}: {offers:OffersType}): JSX.Element {
   const params = useParams();
   const numberPage = Number(params['id']?.match(/\d+/g));
@@ -28,7 +30,7 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {offer?.images.slice(0,6).map((it)=> (
+                {offer?.images.slice(0, MAX_IMAGES_PER_PROPERTY).map((it)=> (
                   <div
                     key={it}
                     className="property__image-wrapper"

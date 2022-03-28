@@ -1,3 +1,5 @@
+import {PointExpression} from 'leaflet';
+
 enum Pages {
   Main = '/',
   Login = '/login',
@@ -26,6 +28,12 @@ export enum Cities {
   Dusseldorf='Dusseldorf',
   Hamburg='Hamburg'
 }
+
+export const MAX_IMAGES_PER_PROPERTY = 6;
+
+export const LEAFLET_ICON_SIZE: PointExpression | undefined = [40, 40];
+
+export const LEAFLET_ANCOR_SIZE: PointExpression | undefined = [20,40];
 
 export const citiesList: string[] = Object.entries(Cities)
   .map(([value]) => (value));
