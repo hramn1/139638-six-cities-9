@@ -7,16 +7,20 @@ import ListProperty from '../list-property/list-property';
 import MapW from '../map/map';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {citiesList}  from '../../const';
+import SortList from '../sort-list/sort-list';
+import {getSorting} from '../../functions';
 
 function Main({offers}: {offers:OffersType}): JSX.Element {
-  const {cityState} = useAppSelector((state) => state);
+  const {cityState} = useAppSelector((state) => state.cityReducer);
+  const {sortState} = useAppSelector((state) => state.sortReducer);
   const dispatch = useAppDispatch();
   const handleClick = (evt: React.SyntheticEvent) =>{
     const htmlElCity = evt.target as HTMLElement;
     const cityTitle = htmlElCity.textContent;
     dispatch(setCity(cityTitle));
   };
-  const CityOffers = offers.filter((offer)=>offer.city.name === cityState);
+  const cityOffers = offers.filter((offer)=>offer.city.name === cityState);
+  const sortOffers = getSorting(sortState,cityOffers);
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -60,29 +64,19 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{CityOffers.length} places to stay in {cityState}</b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by </span>
-                  <span className="places__sorting-type" tabIndex={0}>
-                     Popular
-                    <svg className="places__sorting-arrow" width="7" height="4">
-                      <use xlinkHref="#icon-arrow-select"></use>
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                    <li className="places__option" tabIndex={0}>Price: low to high</li>
-                    <li className="places__option" tabIndex={0}>Price: high to low</li>
-                    <li className="places__option" tabIndex={0}>Top rated first</li>
-                  </ul>
-                </form>
+                <b className="places__found">{cityOffers.length} places to stay in {cityState}</b>
+                <SortList
+                  sortName = {sortState}
+                />
                 <div className="cities__places-list places__list tabs__content">
-                  <ListProperty offers = {CityOffers} />
+                  <ListProperty offers = {sortOffers} />
                 </div>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapW offers = {CityOffers} />
+                  <MapW
+                    offers = {cityOffers}
+                  />
                 </section>
               </div>
             </div>

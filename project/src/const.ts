@@ -1,3 +1,5 @@
+import {PointExpression} from 'leaflet';
+
 enum Pages {
   Main = '/',
   Login = '/login',
@@ -27,8 +29,15 @@ export enum Cities {
   Hamburg='Hamburg'
 }
 
+export const MAX_IMAGES_PER_PROPERTY = 6;
+
+export const LEAFLET_ICON_SIZE: PointExpression | undefined = [40, 40];
+
+export const LEAFLET_ANCOR_SIZE: PointExpression | undefined = [20,40];
+
 export const citiesList: string[] = Object.entries(Cities)
   .map(([value]) => (value));
 
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 export default Pages;

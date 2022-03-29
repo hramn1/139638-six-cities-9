@@ -4,14 +4,23 @@ import {OffersType} from '../../mocks/offers';
 import Pages from '../../const';
 import {useState} from 'react';
 import {getRating} from '../../functions';
+import {useAppDispatch} from '../../hooks';
+import {chooseOffer} from '../../store/actions';
+
 
 function ListProperty({offers}: {offers:OffersType}): JSX.Element {
   const [id, setId] = useState(0);
+  const dispatch = useAppDispatch();
+  const handleMouseEnter = (offerId: number) =>{
+    dispatch(chooseOffer(offerId));
+  };
   return (
     <Fragment>
       {offers.map((offer) => (
         <article key={offer.id}
-          onMouseEnter={()=>{setId(offer.id);
+          onMouseEnter={()=>{
+            setId(offer.id);
+            handleMouseEnter(offer.id);
           }}
           className="cities__place-card place-card"
         >

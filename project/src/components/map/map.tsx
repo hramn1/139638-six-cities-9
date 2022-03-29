@@ -3,36 +3,42 @@ import {OffersType} from '../../mocks/offers';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
-import {URL_MARKER_DEFAULT} from '../../const';
-
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, LEAFLET_ICON_SIZE, LEAFLET_ANCOR_SIZE} from '../../const';
+import {useAppSelector} from '../../hooks';
 
 function MapW ({offers}: {offers:OffersType}) {
+  const {chooseOffer} = useAppSelector((state) => state.chooseOffer);
   const mapRef = React.useRef(null);
-  const cityMap = offers.map((cord) => cord.city.location)[0];
-  const cords = offers.map((cord) => cord.location);
+  const cityMap = offers.map((coordinates) => coordinates.city.location)[0];
   const map = useMap(mapRef, cityMap);
+
+
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: LEAFLET_ICON_SIZE,
+    iconAnchor: LEAFLET_ANCOR_SIZE,
   });
-
+  const currentCustomIcon = leaflet.icon({
+    iconUrl: URL_MARKER_CURRENT,
+    iconSize: LEAFLET_ICON_SIZE,
+    iconAnchor: LEAFLET_ANCOR_SIZE,
+  });
 
   React.useEffect(() => {
     if (map && cityMap) {
       map.setView(new leaflet.LatLng(cityMap.latitude, cityMap.longitude), cityMap.zoom);
-      cords.forEach((point) => {
+      offers.forEach((offer) => {
         leaflet
           .marker({
-            lat: point.latitude,
-            lng: point.longitude,
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
           }, {
-            icon: defaultCustomIcon,
+            icon: (offer.id === chooseOffer) ? currentCustomIcon : defaultCustomIcon,
           })
           .addTo(map);
       });
     }
-  }, [mapRef, map, cityMap, cords, defaultCustomIcon]);
+  }, [mapRef, map, cityMap, offers, chooseOffer, defaultCustomIcon, currentCustomIcon]);
 
   return(
     <div
