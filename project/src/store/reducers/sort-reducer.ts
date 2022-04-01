@@ -9,6 +9,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setSorting, (state, action) => {
       state.sortState = action.payload;
+
     });
 });
 export  {reducer};

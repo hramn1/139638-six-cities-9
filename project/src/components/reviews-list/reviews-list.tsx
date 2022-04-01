@@ -2,7 +2,11 @@ import React from 'react';
 import {CommentType} from '../../mocks/comments';
 import Review from '../review/review';
 
-function ReviewsList({comments}: {comments:CommentType[]}): JSX.Element {
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
+
+function ReviewsList(): JSX.Element {
+  const {isLoading, comments} = useAppSelector((state) => state.getComments);
+
   return (
     <React.Fragment>
       <h2 className="reviews__title">Reviews · <span className="reviews__amount">{comments.length}</span></h2>

@@ -14,6 +14,7 @@ function ListProperty({offers}: {offers:OffersType}): JSX.Element {
   const handleMouseEnter = (offerId: number) =>{
     dispatch(chooseOffer(offerId));
   };
+
   return (
 
     <Fragment>

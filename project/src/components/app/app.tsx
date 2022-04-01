@@ -7,13 +7,25 @@ import Error404 from '../error404/error404';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import {OffersType} from '../../mocks/offers';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-function App({offers}: {offers:OffersType}): JSX.Element {
+function App(): JSX.Element {
+  const {isLoading, offers} = useAppSelector((state) => state.getOffers);
+  if (isLoading) {
+  return (
+    <LoadingScreen />
+  );
+}
   return (
     <BrowserRouter>
       <Routes>
         <Route index
-          element = {<Main offers={offers}/>}
+          element = {
+            <Main
+              offers={offers}
+           />
+           }
         />
         <Route path={Pages.Favor}
           element={

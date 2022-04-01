@@ -1,7 +1,7 @@
 import axios, {AxiosInstance} from 'axios';
+import {BACKEND_URL} from './const';
+import {REQUEST_TIMEOUT} from './const';
 
-const BACKEND_URL = 'https://9.react.pages.academy/six-cities';
-const REQUEST_TIMEOUT = 5000;
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({

@@ -13,6 +13,7 @@ import {getSorting} from '../../functions';
 function Main({offers}: {offers:OffersType}): JSX.Element {
   const {cityState} = useAppSelector((state) => state.cityReducer);
   const {sortState} = useAppSelector((state) => state.sortReducer);
+
   const dispatch = useAppDispatch();
   const handleClick = (evt: React.SyntheticEvent) =>{
     const htmlElCity = evt.target as HTMLElement;
@@ -74,9 +75,7 @@ function Main({offers}: {offers:OffersType}): JSX.Element {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapW
-                    offers = {cityOffers}
-                  />
+                  <MapW offers = {cityOffers} />
                 </section>
               </div>
             </div>
