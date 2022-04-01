@@ -15,6 +15,7 @@ function ListProperty({offers}: {offers:OffersType}): JSX.Element {
     dispatch(chooseOffer(offerId));
   };
   return (
+
     <Fragment>
       {offers.map((offer) => (
         <article key={offer.id}
