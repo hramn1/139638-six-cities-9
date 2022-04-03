@@ -5,3 +5,4 @@ export const setSorting = createAction<string | null>('selectSort');
 export const chooseOffer = createAction<number | null>('chooseOffer');
 export const getOffers = createAction<number | null>('getOffers');
 export const getComments = createAction<number | null>('getComments');
+export const requireAuthorization = createAction<number | null>('getAuth');

@@ -1,8 +1,11 @@
 import {Link} from 'react-router-dom';
 import React from 'react';
-import Pages from '../../const';
+import Pages, {AuthorizationStatus} from '../../const';
+import {useAppSelector} from '../../hooks';
 
 function Header () {
+  const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
+  console.log(authorizationStatus)
   return (
     <header className="header">
       <div className="container">
@@ -14,6 +17,16 @@ function Header () {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
+              {authorizationStatus !== AuthorizationStatus.Auth ?
+                <li className="header__nav-item">
+                  <Link
+                    className="header__nav-link"
+                    to={Pages.Login}
+                  >
+                    <span className="header__signin">Sign in</span>
+                  </Link>
+                </li> :
+                <>
               <li className="header__nav-item user">
                 <Link className="header__nav-link header__nav-link--profile" to={Pages.Favor}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
@@ -26,6 +39,7 @@ function Header () {
                   <span className="header__signout">Sign out</span>
                 </Link>
               </li>
+                </>}
             </ul>
           </nav>
         </div>

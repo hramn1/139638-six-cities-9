@@ -10,6 +10,12 @@ enum Pages {
 export const BACKEND_URL = 'https://9.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
+
 export enum Month {
   January,
   February,
@@ -40,6 +46,13 @@ export enum APIRoute {
   Nearby = '/nearby',
   Comments = '/comments',
 }
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
 export const MAX_IMAGES_PER_PROPERTY = 6;
 
 export const LEAFLET_ICON_SIZE: PointExpression | undefined = [40, 40];

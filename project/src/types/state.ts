@@ -5,6 +5,17 @@ export type TypeState = {
   sortState: string | null,
   chooseOffer: number | null
 }
+export type Host = {
+  avatarUrl: string,
+  id: number,
+  isPro: boolean,
+  name: string,
+};
+
+export type UserData = Host & {
+  email: string,
+  token: string,
+};
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -21,6 +32,7 @@ export type Hosts = {
   isPro: boolean,
   avatarUrl: string
 }
+export type ErrorType = unknown;
 export type OffersType = {
   city: {
     name: string,
