@@ -5,21 +5,21 @@ import FormComment from '../form-comment/form-comment';
 import {OffersType} from '../../mocks/offers';
 import {getRating} from '../../functions';
 import ReviewsList from '../reviews-list/reviews-list';
-import {comments} from '../../mocks/comments';
 import MapW from '../map/map';
 import ListProperty from '../list-property/list-property';
 import {store} from '../../store/store';
+import  {AuthorizationStatus} from '../../const';
 import {fetchCommentsAction} from '../../store/api-actions'
 import {MAX_IMAGES_PER_PROPERTY} from '../../const';
-import {useAppSelector, useAppDispatch} from '../../hooks/index';
+import {useAppSelector} from '../../hooks';
 
 
 function Property({offers}: {offers:OffersType}): JSX.Element {
   const params = useParams();
+  const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
   const numberPage = Number(params['id']?.match(/\d+/g));
   store.dispatch(fetchCommentsAction(numberPage));
 
-  console.log(5)
   const offer = offers.find((it)=>
     it.id === numberPage,
   );
@@ -118,9 +118,10 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                 </div>
                 <section className="property__reviews reviews">
                   <ReviewsList
-                    // comments = {comments}
                   />
-                  <FormComment/>
+                  {authorizationStatus === AuthorizationStatus.Auth ? <FormComment
+                  room = {offer?.id}
+                  /> : ''}
                 </section>
               </div>
             </div>

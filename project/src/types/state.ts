@@ -3,7 +3,11 @@ import {store} from '../store/store';
 export type TypeState = {
   cityState: string | null,
   sortState: string | null,
-  chooseOffer: number | null
+  chooseOffer: number | null,
+  isLoading: boolean,
+  offers: OffersType[],
+  comments: CommentType[],
+  offersFavor: OffersType[],
 }
 export type Host = {
   avatarUrl: string,
@@ -16,7 +20,10 @@ export type UserData = Host & {
   email: string,
   token: string,
 };
-
+export type AuthData = {
+  email: string,
+  password: string,
+};
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
@@ -34,6 +41,7 @@ export type Hosts = {
 }
 export type ErrorType = unknown;
 export type OffersType = {
+  id: number,
   city: {
     name: string,
     location: Location
@@ -52,8 +60,19 @@ export type OffersType = {
   host: Hosts,
   description: string,
   location: Location,
-  id: number,
-}[]
+}
 export interface CityName extends OffersType   {
   cityMap: string | null,
+}
+export type CommentType = {
+  id: number,
+  user: {
+    id: number,
+    isPro: boolean,
+    name: string,
+    avatarUrl: string,
+  },
+  rating: number,
+  comment: string,
+  date: string,
 }

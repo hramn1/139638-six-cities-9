@@ -30,7 +30,7 @@ function App(): JSX.Element {
         <Route path={Pages.Favor}
           element={
             <PrivateRoute>
-              <Favorites offers={offers} />
+              <Favorites />
             </PrivateRoute>
           }
         />

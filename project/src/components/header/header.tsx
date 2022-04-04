@@ -1,11 +1,23 @@
-import {Link} from 'react-router-dom';
-import React from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import React, {MouseEvent} from 'react';
 import Pages, {AuthorizationStatus} from '../../const';
-import {useAppSelector} from '../../hooks';
+import {useAppSelector, useAppDispatch} from '../../hooks';
+import {store} from '../../store/store';
+import {fetchFavoritesAction, logoutAction} from '../../store/api-actions';
 
 function Header () {
   const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
-  console.log(authorizationStatus)
+  const {userName} = useAppSelector((state) => state.requireAuth);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const onClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+    const promiseToFavor = new Promise((resolve) =>{
+      resolve(store.dispatch(fetchFavoritesAction()))
+    })
+    promiseToFavor.then(()=>navigate(Pages.Favor))
+
+  }
   return (
     <header className="header">
       <div className="container">
@@ -28,14 +40,14 @@ function Header () {
                 </li> :
                 <>
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={Pages.Favor}>
+                <Link onClick={onClick} className="header__nav-link header__nav-link--profile" to={Pages.Main}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <span className="header__user-name user__name">{userName}</span>
                 </Link>
               </li>
               <li className="header__nav-item">
-                <Link className="header__nav-link" to="/">
+                <Link onClick={() => dispatch(logoutAction())} className="header__nav-link" to="/">
                   <span className="header__signout">Sign out</span>
                 </Link>
               </li>

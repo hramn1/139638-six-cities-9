@@ -1,10 +1,10 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {TypeState} from '../../types/state';
 import {getOffers} from '../actions';
+import {TypeState} from '../../types/state';
 
-const initialState = {
+const initialState: Pick<TypeState, 'isLoading' | 'offers'>= {
 	isLoading: true,
-	offers: []
+	offers: [],
 };
 const reducer = createReducer(initialState, (builder) => {
   builder

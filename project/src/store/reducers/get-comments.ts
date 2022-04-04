@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {TypeState} from '../../types/state';
 import {getComments} from '../actions';
 
-const initialState = {
+const initialState: Pick<TypeState, 'isLoading' | 'comments'>= {
 	isLoading: true,
 	comments: []
 };

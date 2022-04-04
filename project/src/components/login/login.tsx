@@ -1,13 +1,15 @@
 import React from 'react';
 import { FormEvent, useRef } from 'react';
-import {Link} from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import {Link, useNavigate} from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import Pages from  '../../const'
+import {AuthData} from '../../types/state'
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -20,7 +22,7 @@ function Login(): JSX.Element {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
-      // navigate(AppRoute.Main);
+      navigate(Pages.Main);
     }
   };
   return (

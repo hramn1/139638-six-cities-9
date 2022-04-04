@@ -1,13 +1,36 @@
-import React from 'react';
+import  React , { FormEvent } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { addReviewAction } from '../../store/api-actions';
 
-function FormComment(): JSX.Element {
+function FormComment(room: number): JSX.Element {
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = React.useState({
-    rating: '',
+    rating: 0,
     review: '',
+    roomId: room,
   });
   const fieldChangeHandle = (evt: React.SyntheticEvent) =>{
     const {name, value} = evt.currentTarget as HTMLInputElement;
     setFormData({...formData, [name]: value});
+    setIsButtonDisabled(!(formData.review.length >= 50 && formData.rating !== 0));
+  };
+  const [isButtonDisabled, setIsButtonDisabled] = React.useState<boolean>(true);
+  const onSubmit = (newReview: NewReview) => {
+    dispatch(addReviewAction(newReview));
+  };
+  const handleClick = (evt: FormEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+
+    const { rating, review, roomId } = formData;
+
+    if (rating !== 0 && review !== '' && roomId !== null) {
+      onSubmit({
+        rating,
+        review,
+        roomId,
+      });
+    }
+    setFormData({ rating: 0, review: '', roomId: 0 });
   };
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -62,7 +85,10 @@ function FormComment(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit"
+                onClick={handleClick}
+                disabled={isButtonDisabled}
+        >Submit</button>
       </div>
     </form>
   );

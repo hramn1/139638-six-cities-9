@@ -6,7 +6,8 @@ import {reducer as chooseOffer} from './reducers/choose-offer-reducer';
 import {reducer as getOffers} from './reducers/get-offers';
 import {reducer as getComments} from './reducers/get-comments';
 import {reducer as requireAuth} from './reducers/reqiure-auth-reducer';
-
+import {reducer as loadFavor} from './reducers/load-favorites-reducers';
+import {reducer as setReducer} from './reducers/set-favor-reducers';
 
 import { createAPI } from './../api';
 
@@ -20,6 +21,8 @@ const reducer = combineReducers({
   getOffers: getOffers,
   getComments: getComments,
   requireAuth: requireAuth,
+  loadFavor: loadFavor,
+  setReducer: setReducer
 });
 
 export const store = configureStore({reducer});
