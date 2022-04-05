@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  {MouseEvent} from 'react';
 import Header from '../header/header';
 import {useParams, useNavigate, Navigate} from 'react-router-dom';
 import FormComment from '../form-comment/form-comment';
@@ -31,7 +31,7 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
   const offersNearby = offers.filter((offerNearby)=> (
     offerNearby.city.name === offer?.city.name
   ));
-  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorites:boolean) => {
+  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number | undefined, isFavorites:boolean | undefined) => {
     evt.preventDefault();
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Pages.Login);
@@ -67,7 +67,7 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
             <div className="property__container container">
               <div className="property__wrapper">
 
-              {offer.isPremium ? <div className="property__mark">
+              {offer?.isPremium ? <div className="property__mark">
                                 <span>Premium</span>
                               </div> : ''
                             }
@@ -77,9 +77,9 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                     {offer?.title}
                   </h1>
                   <button onClick={(evt)=>{
-                    onBookmarkClick(evt, offer.id, offer.isFavorite);
+                    onBookmarkClick(evt, offer?.id, offer?.isFavorite);
                   }}
-                   className={`property__bookmark-button button ${offer.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
+                   className={`property__bookmark-button button ${offer?.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
                     <svg className="property__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>

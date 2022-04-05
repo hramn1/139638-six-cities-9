@@ -4,12 +4,17 @@ import {useAppSelector, useAppDispatch} from '../../hooks';
 
 type PrivateRouteProps = {
   children: JSX.Element;
-  status: AuthorizationStatus
+  status: string
 };
 
 function PrivateRoute({children, status}: PrivateRouteProps): JSX.Element {
-  console.log(status)
-  return (status === AuthorizationStatus.Auth) ? children : <Navigate to={'/login'} />;
+  if(children.type.name === "Favorites") {
+    return (status === AuthorizationStatus.Auth) ? children : <Navigate to={'/login'} />;
+  }
+  if(children.type.name === "Login"){
+    return (status !== AuthorizationStatus.Auth) ? children : <Navigate to={'/'} />;
+  }
+  return children
 }
 
 export default PrivateRoute;

@@ -49,7 +49,13 @@ function App(): JSX.Element {
           element={<Error404/>}
         />
         <Route path={Pages.Login}
-          element={<Login/>}
+        element={
+          <PrivateRoute
+            status={authorizationStatus}
+          >
+            <Login />
+          </PrivateRoute>
+        }
         />
       </Routes>
     </BrowserRouter>

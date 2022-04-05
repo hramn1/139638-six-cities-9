@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  {MouseEvent} from 'react';
 import {Link, useNavigate, Navigate } from 'react-router-dom';
 import Footer from '../footer/footer';
 import Header from '../header/header';

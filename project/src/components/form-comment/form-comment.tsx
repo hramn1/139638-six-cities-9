@@ -2,7 +2,7 @@ import  React , { FormEvent } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
 
-function FormComment(room: number): JSX.Element {
+function FormComment(room: {room: number | undefined}): JSX.Element {
   const dispatch = useAppDispatch();
   const [formData, setFormData] = React.useState({
     rating: 0,
@@ -30,7 +30,7 @@ function FormComment(room: number): JSX.Element {
         roomId,
       });
     }
-    setFormData({ rating: 0, review: '', roomId: 0 });
+    setFormData({ rating: 0, review: '', roomId: {room: 0} });
   };
   return (
     <form className="reviews__form form" action="#" method="post">

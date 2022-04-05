@@ -45,8 +45,8 @@ export const addReviewAction = createAsyncThunk(
 
 export const setFavoritesAction = createAsyncThunk(
   'data/setFavorites',
-  async ({ id, isFavor }: {id: number
-      isFavor: boolean }) => {
+  async ({ id, isFavor }: {id: number | undefined
+      isFavor: boolean | undefined }) => {
     try {
       const { data } = await api.post(`${APIRoute.Favorite}/${id}/${Number(isFavor)}`);
       store.dispatch(setFavorites(data));
