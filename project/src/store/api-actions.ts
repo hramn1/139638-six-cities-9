@@ -46,10 +46,10 @@ export const addReviewAction = createAsyncThunk(
 
 export const setFavoritesAction = createAsyncThunk(
   'data/setFavorites',
-  async ({ id, isFavor }: {id: number | undefined
-      isFavor: boolean | undefined }) => {
+  async ({ id, isFavorite }: {id: number | undefined
+    isFavorite: boolean | undefined }) => {
     try {
-      const { data } = await api.post(`${APIRoute.Favorite}/${id}/${Number(isFavor)}`);
+      const { data } = await api.post(`${APIRoute.Favorite}/${id}/${Number(isFavorite)}`);
       store.dispatch(setFavorites(data));
     } catch (error) {
       errorHandle(error);

@@ -30,6 +30,10 @@ export enum Month {
   November,
   December
 }
+export enum MailVerification {
+  rating = 0,
+  minLength = 50
+}
 export enum Cities {
   Paris='Paris',
   Amsterdam='Amsterdan',

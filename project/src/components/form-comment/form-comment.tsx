@@ -2,7 +2,7 @@ import  React , { FormEvent } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
 import {NewReview} from '../../types/state';
-
+import {MailVerification} from '../../const';
 function FormComment(room: {room: number | undefined}): JSX.Element {
   const dispatch = useAppDispatch();
   const [formData, setFormData] = React.useState({
@@ -13,7 +13,7 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
   const fieldChangeHandle = (evt: React.SyntheticEvent) =>{
     const {name, value} = evt.currentTarget as HTMLInputElement;
     setFormData({...formData, [name]: value});
-    setIsButtonDisabled(!(formData.review.length >= 50 && formData.rating !== 0));
+    setIsButtonDisabled(!(formData.review.length >= MailVerification.minLength && formData.rating !== MailVerification.rating));
   };
   const [isButtonDisabled, setIsButtonDisabled] = React.useState<boolean>(true);
   const onSubmit = (newReview: NewReview) => {

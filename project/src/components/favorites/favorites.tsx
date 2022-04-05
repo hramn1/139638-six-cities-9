@@ -17,16 +17,15 @@ function Favorites(): JSX.Element {
   const favoriteOffers = offersFavor.filter((offer)=> offer.isFavorite);
   const cities = Array.from(new Set(favoriteOffers.map((city) => city.city.name)));
 
-  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorites:boolean) => {
+  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorite:boolean ) => {
     evt.preventDefault();
 
-    const isFavor = !isFavorites;
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Pages.Login);
 
     }
     const promiseToFavor = new Promise((resolve) =>{
-      resolve(store.dispatch(setFavoritesAction({id, isFavor})));
+      resolve(store.dispatch(setFavoritesAction({id, isFavorite: !isFavorite})));
     });
     promiseToFavor.then(()=>store.dispatch(fetchFavoritesAction()));
   };

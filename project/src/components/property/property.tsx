@@ -29,14 +29,13 @@ function Property({offers}: {offers:OffersType[]}): JSX.Element {
   const offersNearby = offers.filter((offerNearby)=> (
     offerNearby.city.name === offer?.city.name
   ));
-  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number | undefined, isFavorites:boolean | undefined) => {
+  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number | undefined, isFavorite:boolean | undefined) => {
     evt.preventDefault();
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Pages.Login);
     }
-    const isFavor = !isFavorites;
     const promiseToFavor = new Promise((resolve) =>{
-      resolve(store.dispatch(setFavoritesAction({id, isFavor})));
+      resolve(store.dispatch(setFavoritesAction({id, isFavorite: !isFavorite})));
     });
     promiseToFavor.then(()=>store.dispatch(fetchOffersAction()));
   };

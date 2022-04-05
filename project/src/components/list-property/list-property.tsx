@@ -18,15 +18,13 @@ function ListProperty({offers}: {offers:OffersType[]}): JSX.Element {
   const handleMouseEnter = (offerId: number) =>{
     dispatch(chooseOffer(offerId));
   };
-  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorites:boolean) => {
+  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorite:boolean) => {
     evt.preventDefault();
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Pages.Login);
     }
-    const isFavor = !isFavorites;
-
     const promiseToFavor = new Promise((resolve) =>{
-      resolve(dispatch(setFavoritesAction({id, isFavor})));
+      resolve(dispatch(setFavoritesAction({id, isFavorite: !isFavorite})));
     });
     promiseToFavor.then(() => (
       store.dispatch(fetchOffersAction())),
