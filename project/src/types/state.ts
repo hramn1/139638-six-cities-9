@@ -9,6 +9,13 @@ export type TypeState = {
   comments: CommentType[],
   offersFavor: OffersType[],
 }
+export type NewReview = {
+  review: string,
+  rating: number,
+  roomId: {
+    room: number | undefined,
+  },
+};
 export type Host = {
   avatarUrl: string,
   id: number,

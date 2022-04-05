@@ -1,10 +1,11 @@
 import { api, store } from './store';
-import { createAsyncThunk} from "@reduxjs/toolkit";
-import { OffersType, UserData, CommentType, AuthData } from "../types/state";
+import { createAsyncThunk} from '@reduxjs/toolkit';
+import { OffersType, UserData, CommentType, AuthData } from '../types/state';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {getOffers, getComments, requireAuthorization, loadFavorites, setFavorites, setUserName} from './actions';
 import { errorHandle } from '../services/error-handle';
 import { dropToken, saveToken } from '../services/token';
+import {NewReview} from '../types/state';
 
 export const fetchOffersAction = createAsyncThunk(
   'data/fetchoffers',

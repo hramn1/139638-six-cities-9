@@ -6,8 +6,7 @@ import Property from '../property/property';
 import Error404 from '../error404/error404';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
-import {OffersType} from '../../mocks/offers';
-import {useAppSelector, useAppDispatch} from '../../hooks/index';
+import {useAppSelector} from '../../hooks/index';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function App(): JSX.Element {
@@ -15,19 +14,19 @@ function App(): JSX.Element {
   const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
 
   if (isLoading) {
-  return (
-    <LoadingScreen />
-  );
-}
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
     <BrowserRouter>
       <Routes>
         <Route index
-          element = {
+          element={
             <Main
               offers={offers}
-           />
-           }
+            />
+          }
         />
         <Route path={Pages.Favor}
           element={
@@ -49,17 +48,16 @@ function App(): JSX.Element {
           element={<Error404/>}
         />
         <Route path={Pages.Login}
-        element={
-          <PrivateRoute
-            status={authorizationStatus}
-          >
-            <Login />
-          </PrivateRoute>
-        }
+          element={
+            <PrivateRoute
+              status={authorizationStatus}
+            >
+              <Login />
+            </PrivateRoute>
+          }
         />
       </Routes>
     </BrowserRouter>
-
   );
 }
 

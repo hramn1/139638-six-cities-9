@@ -8,5 +8,5 @@ export const getOffers = createAction<OffersType[]>('getOffers');
 export const getComments = createAction<CommentType[]>('getComments');
 export const requireAuthorization = createAction<string>('getAuth');
 export const loadFavorites = createAction<OffersType[]>('getFavorites');
-export const setFavorites = createAction<number | boolean>('setFavorites');
-export const setUserName = createAction<string>('setName')
+export const setFavorites = createAction<[]>('setFavorites');
+export const setUserName = createAction<string>('setName');

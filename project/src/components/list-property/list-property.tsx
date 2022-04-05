@@ -1,6 +1,6 @@
 import React, {Fragment, MouseEvent} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {OffersType} from '../../mocks/offers';
+import {OffersType} from '../../types/state';
 import Pages, {AuthorizationStatus} from '../../const';
 import {useState} from 'react';
 import {getRating} from '../../functions';
@@ -9,8 +9,8 @@ import {chooseOffer} from '../../store/actions';
 import {store} from '../../store/store';
 import {setFavoritesAction, fetchOffersAction} from '../../store/api-actions';
 
-function ListProperty({offers}: {offers:OffersType}): JSX.Element {
-  const [id, setId] = useState(0);
+function ListProperty({offers}: {offers:OffersType[]}): JSX.Element {
+  const [idPage, setId] = useState(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
@@ -23,17 +23,18 @@ function ListProperty({offers}: {offers:OffersType}): JSX.Element {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Pages.Login);
     }
-    const isFavor = !isFavorites
+    const isFavor = !isFavorites;
 
     const promiseToFavor = new Promise((resolve) =>{
-      resolve(dispatch(setFavoritesAction({id, isFavor})))
-    })
-    promiseToFavor.then(()=>store.dispatch(fetchOffersAction()))
+      resolve(dispatch(setFavoritesAction({id, isFavor})));
+    });
+    promiseToFavor.then(() => (
+      store.dispatch(fetchOffersAction())),
+    );
   };
   return (
     <Fragment>
-      {offers.map((offer) => {
-        return (
+      {offers.map((offer) => (
         <article key={offer.id}
           onMouseEnter={()=>{
             setId(offer.id);
@@ -41,12 +42,12 @@ function ListProperty({offers}: {offers:OffersType}): JSX.Element {
           }}
           className="cities__place-card place-card"
         >
-        {offer.isPremium ? <div className="place-card__mark">
-                          <span>Premium</span>
-                        </div> : ''
-                      }
+          {offer.isPremium ?
+            <div className="place-card__mark">
+              <span>Premium</span>
+            </div> : ''}
           <div className="cities__image-wrapper place-card__image-wrapper">
-            <Link to={`${Pages.Room}=${id}`}>
+            <Link to={`${Pages.Room}=${idPage}`}>
               <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place"/>
             </Link>
           </div>
@@ -59,7 +60,8 @@ function ListProperty({offers}: {offers:OffersType}): JSX.Element {
               <button onClick={(evt)=>{
                 onBookmarkClick(evt, offer.id, offer.isFavorite);
               }}
-                      className={`place-card__bookmark-button button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button">
+              className={`place-card__bookmark-button button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button"
+              >
                 <svg className="place-card__bookmark-icon" width="18" height="19">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -73,12 +75,12 @@ function ListProperty({offers}: {offers:OffersType}): JSX.Element {
               </div>
             </div>
             <h2 className="place-card__name">
-              <Link to={`${Pages.Room}=${id}`}>{offer.title}</Link>
+              <Link to={`${Pages.Room}=${idPage}`}>{offer.title}</Link>
             </h2>
             <p className="place-card__type">{offer.type}</p>
           </div>
         </article>
-      )}
+      ),
       )}
     </Fragment>);
 }

@@ -13,11 +13,11 @@ function Header () {
   const onClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     const promiseToFavor = new Promise((resolve) =>{
-      resolve(store.dispatch(fetchFavoritesAction()))
-    })
-    promiseToFavor.then(()=>navigate(Pages.Favor))
+      resolve(store.dispatch(fetchFavoritesAction()));
+    });
+    promiseToFavor.then(()=>navigate(Pages.Favor));
 
-  }
+  };
   return (
     <header className="header">
       <div className="container">
@@ -39,18 +39,18 @@ function Header () {
                   </Link>
                 </li> :
                 <>
-              <li className="header__nav-item user">
-                <Link onClick={onClick} className="header__nav-link header__nav-link--profile" to={Pages.Main}>
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
-                  <span className="header__user-name user__name">{userName}</span>
-                </Link>
-              </li>
-              <li className="header__nav-item">
-                <Link onClick={() => dispatch(logoutAction())} className="header__nav-link" to="/">
-                  <span className="header__signout">Sign out</span>
-                </Link>
-              </li>
+                  <li className="header__nav-item user">
+                    <Link onClick={onClick} className="header__nav-link header__nav-link--profile" to={Pages.Main}>
+                      <div className="header__avatar-wrapper user__avatar-wrapper">
+                      </div>
+                      <span className="header__user-name user__name">{userName}</span>
+                    </Link>
+                  </li>
+                  <li className="header__nav-item">
+                    <Link onClick={() => dispatch(logoutAction())} className="header__nav-link" to="/">
+                      <span className="header__signout">Sign out</span>
+                    </Link>
+                  </li>
                 </>}
             </ul>
           </nav>

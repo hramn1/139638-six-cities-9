@@ -1,11 +1,10 @@
 import React from 'react';
-import {CommentType} from '../../mocks/comments';
 import Review from '../review/review';
 
-import {useAppSelector, useAppDispatch} from '../../hooks/index';
+import {useAppSelector} from '../../hooks/index';
 
 function ReviewsList(): JSX.Element {
-  const {isLoading, comments} = useAppSelector((state) => state.getComments);
+  const {comments} = useAppSelector((state) => state.getComments);
 
   return (
     <React.Fragment>

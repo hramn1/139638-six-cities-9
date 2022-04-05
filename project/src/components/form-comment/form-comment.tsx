@@ -1,6 +1,7 @@
 import  React , { FormEvent } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
+import {NewReview} from '../../types/state';
 
 function FormComment(room: {room: number | undefined}): JSX.Element {
   const dispatch = useAppDispatch();
@@ -86,9 +87,11 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit"
-                onClick={handleClick}
-                disabled={isButtonDisabled}
-        >Submit</button>
+          onClick={handleClick}
+          disabled={isButtonDisabled}
+        >
+          Submit
+        </button>
       </div>
     </form>
   );

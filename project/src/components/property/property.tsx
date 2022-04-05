@@ -1,28 +1,26 @@
 import React,  {MouseEvent} from 'react';
 import Header from '../header/header';
-import {useParams, useNavigate, Navigate} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import FormComment from '../form-comment/form-comment';
-import {OffersType} from '../../mocks/offers';
+import {OffersType} from '../../types/state';
 import {getRating} from '../../functions';
 import ReviewsList from '../reviews-list/reviews-list';
 import MapW from '../map/map';
 import ListProperty from '../list-property/list-property';
 import {store} from '../../store/store';
 import  {AuthorizationStatus} from '../../const';
-import {fetchCommentsAction} from '../../store/api-actions'
+import {fetchCommentsAction} from '../../store/api-actions';
 import Pages, {MAX_IMAGES_PER_PROPERTY} from '../../const';
 import {useAppSelector} from '../../hooks';
 import {setFavoritesAction, fetchOffersAction} from '../../store/api-actions';
 
 
-function Property({offers}: {offers:OffersType}): JSX.Element {
+function Property({offers}: {offers:OffersType[]}): JSX.Element {
   const params = useParams();
   const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
   const numberPage = Number(params['id']?.match(/\d+/g));
   const navigate = useNavigate();
-  // if(offers.length<=numberPage){
-  //
-  // }
+
   store.dispatch(fetchCommentsAction(numberPage));
 
   const offer = offers.find((it)=>
@@ -36,12 +34,11 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Pages.Login);
     }
-    const isFavor = !isFavorites
-
+    const isFavor = !isFavorites;
     const promiseToFavor = new Promise((resolve) =>{
-      resolve(store.dispatch(setFavoritesAction({id, isFavor})))
-    })
-    promiseToFavor.then(()=>store.dispatch(fetchOffersAction()))
+      resolve(store.dispatch(setFavoritesAction({id, isFavor})));
+    });
+    promiseToFavor.then(()=>store.dispatch(fetchOffersAction()));
   };
   return (
     <React.Fragment>
@@ -66,12 +63,10 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-
-              {offer?.isPremium ? <div className="property__mark">
-                                <span>Premium</span>
-                              </div> : ''
-                            }
-
+                {offer?.isPremium ?
+                  <div className="property__mark">
+                    <span>Premium</span>
+                  </div> : ''}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
                     {offer?.title}
@@ -79,7 +74,9 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                   <button onClick={(evt)=>{
                     onBookmarkClick(evt, offer?.id, offer?.isFavorite);
                   }}
-                   className={`property__bookmark-button button ${offer?.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
+                  className={`property__bookmark-button button ${offer?.isFavorite ? 'property__bookmark-button--active' : ''}`}
+                  type="button"
+                  >
                     <svg className="property__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
@@ -139,11 +136,12 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <ReviewsList
-                  />
-                  {authorizationStatus === AuthorizationStatus.Auth ? <FormComment
-                  room = {offer?.id}
-                  /> : ''}
+                  <ReviewsList/>
+                  {authorizationStatus === AuthorizationStatus.Auth ?
+                    <FormComment
+                      room = {offer?.id}
+                    />
+                    : ''}
                 </section>
               </div>
             </div>

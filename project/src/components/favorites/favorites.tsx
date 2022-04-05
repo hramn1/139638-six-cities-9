@@ -1,10 +1,9 @@
 import React,  {MouseEvent} from 'react';
-import {Link, useNavigate, Navigate } from 'react-router-dom';
+import {Link, useNavigate } from 'react-router-dom';
 import Footer from '../footer/footer';
 import Header from '../header/header';
-import {OffersType} from '../../mocks/offers';
 import {getRating} from '../../functions';
-import {useAppSelector, useAppDispatch} from '../../hooks';
+import {useAppSelector} from '../../hooks';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import {store} from '../../store/store';
 import Pages, {AuthorizationStatus} from '../../const';
@@ -21,15 +20,15 @@ function Favorites(): JSX.Element {
   const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorites:boolean) => {
     evt.preventDefault();
 
-    const isFavor = !isFavorites
+    const isFavor = !isFavorites;
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Pages.Login);
 
     }
     const promiseToFavor = new Promise((resolve) =>{
-      resolve(store.dispatch(setFavoritesAction({id, isFavor})))
-    })
-    promiseToFavor.then(()=>store.dispatch(fetchFavoritesAction()))
+      resolve(store.dispatch(setFavoritesAction({id, isFavor})));
+    });
+    promiseToFavor.then(()=>store.dispatch(fetchFavoritesAction()));
   };
   return (
     <React.Fragment>
@@ -56,10 +55,10 @@ function Favorites(): JSX.Element {
                       <div className="favorites__places">
                         {offersFavor.filter((offer) => offer.city.name === city).map((offer) => (
                           <article key={offer.id} className="favorites__card place-card">
-                            {offer.isPremium ? <div className="place-card__mark">
-                                              <span>Premium</span>
-                                            </div> : ''
-                                          }
+                            {offer.isPremium ?
+                              <div className="place-card__mark">
+                                <span>Premium</span>
+                              </div> : ''}
                             <div className="favorites__image-wrapper place-card__image-wrapper">
                               <Link to="/">
                                 <img className="place-card__image" src={offer.previewImage} alt="Place" width={150}

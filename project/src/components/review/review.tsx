@@ -1,5 +1,5 @@
 import React from 'react';
-import {CommentType} from '../../mocks/comments';
+import {CommentType} from '../../types/state';
 import {getNormalDate, getRating} from '../../functions';
 
 function Review({review}: {review: CommentType}): JSX.Element {

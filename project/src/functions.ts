@@ -1,5 +1,5 @@
 import {Month} from './const';
-import {OffersType} from './mocks/offers';
+import {OffersType} from './types/state';
 
 export const getRating = (rating: number | undefined): number | undefined => {
   if(rating !== undefined){
@@ -12,7 +12,7 @@ export const getNormalDate = (date: string) =>{
   return `${monthComment} ${yearComment}`;
 };
 
-export const getSorting = (sort: string | null, offers: OffersType)=>{
+export const getSorting = (sort: string | null, offers: OffersType[])=>{
   switch (sort){
     case 'Price: high to low':
       return [...offers].sort((a,b)=>b.price-a.price);

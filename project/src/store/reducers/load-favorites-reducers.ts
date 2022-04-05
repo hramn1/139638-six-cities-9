@@ -1,5 +1,4 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {APIRoute, AuthorizationStatus} from '../../const';
 import {loadFavorites} from '../actions';
 import {TypeState} from '../../types/state';
 

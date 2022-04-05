@@ -1,12 +1,12 @@
 import React from 'react';
-import {OffersType} from '../../mocks/offers';
+import {OffersType} from '../../types/state';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, LEAFLET_ICON_SIZE, LEAFLET_ANCOR_SIZE} from '../../const';
 import {useAppSelector} from '../../hooks';
 
-function MapW ({offers}: {offers:OffersType}) {
+function MapW ({offers}: {offers:OffersType[]}) {
   const {chooseOffer} = useAppSelector((state) => state.chooseOffer);
   const mapRef = React.useRef(null);
   const cityMap = offers.map((coordinates) => coordinates.city.location)[0];

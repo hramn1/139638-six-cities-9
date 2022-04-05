@@ -15,7 +15,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.authorizationStatus = action.payload;
     })
     .addCase(setUserName, (state, action) => {
-    state.userName = action.payload;
-  });
+      state.userName = action.payload;
+    });
 });
 export  {reducer};

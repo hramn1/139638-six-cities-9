@@ -1,14 +1,13 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {APIRoute, AuthorizationStatus} from '../../const';
 import {setFavorites} from '../actions';
 
-const initialState = {
+const initialState: {offersFavor: []} = {
   offersFavor: [],
 };
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setFavorites, (state, action) => {
-      state.offersFavor = action.payload
+      state.offersFavor = action.payload;
     });
 });
 export  {reducer};

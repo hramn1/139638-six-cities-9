@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../header/header';
 import {Link} from 'react-router-dom';
 import {setCity} from '../../store/actions';
-import {OffersType} from '../../mocks/offers';
+import {OffersType} from '../../types/state';
 import ListProperty from '../list-property/list-property';
 import MapW from '../map/map';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
@@ -10,10 +10,10 @@ import {citiesList}  from '../../const';
 import SortList from '../sort-list/sort-list';
 import {getSorting} from '../../functions';
 
-function Main({offers}: {offers:OffersType}): JSX.Element {
+function Main({offers}: {offers:OffersType[]}): JSX.Element {
   const {cityState} = useAppSelector((state) => state.cityReducer);
   const {sortState} = useAppSelector((state) => state.sortReducer);
-  
+
   const dispatch = useAppDispatch();
   const handleClick = (evt: React.SyntheticEvent) =>{
     const htmlElCity = evt.target as HTMLElement;

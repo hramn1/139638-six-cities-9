@@ -22,7 +22,7 @@ const reducer = combineReducers({
   getComments: getComments,
   requireAuth: requireAuth,
   loadFavor: loadFavor,
-  setReducer: setReducer
+  setReducer: setReducer,
 });
 
 export const store = configureStore({reducer});

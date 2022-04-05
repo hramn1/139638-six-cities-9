@@ -3,8 +3,8 @@ import { FormEvent, useRef } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import Pages from  '../../const'
-import {AuthData} from '../../types/state'
+import Pages from  '../../const';
+import {AuthData} from '../../types/state';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
