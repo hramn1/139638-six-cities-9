@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../header/header';
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate, Navigate} from 'react-router-dom';
 import FormComment from '../form-comment/form-comment';
 import {OffersType} from '../../mocks/offers';
 import {getRating} from '../../functions';
@@ -10,14 +10,19 @@ import ListProperty from '../list-property/list-property';
 import {store} from '../../store/store';
 import  {AuthorizationStatus} from '../../const';
 import {fetchCommentsAction} from '../../store/api-actions'
-import {MAX_IMAGES_PER_PROPERTY} from '../../const';
+import Pages, {MAX_IMAGES_PER_PROPERTY} from '../../const';
 import {useAppSelector} from '../../hooks';
+import {setFavoritesAction, fetchOffersAction} from '../../store/api-actions';
 
 
 function Property({offers}: {offers:OffersType}): JSX.Element {
   const params = useParams();
   const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
   const numberPage = Number(params['id']?.match(/\d+/g));
+  const navigate = useNavigate();
+  // if(offers.length<=numberPage){
+  //
+  // }
   store.dispatch(fetchCommentsAction(numberPage));
 
   const offer = offers.find((it)=>
@@ -26,7 +31,18 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
   const offersNearby = offers.filter((offerNearby)=> (
     offerNearby.city.name === offer?.city.name
   ));
+  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorites:boolean) => {
+    evt.preventDefault();
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(Pages.Login);
+    }
+    const isFavor = !isFavorites
 
+    const promiseToFavor = new Promise((resolve) =>{
+      resolve(store.dispatch(setFavoritesAction({id, isFavor})))
+    })
+    promiseToFavor.then(()=>store.dispatch(fetchOffersAction()))
+  };
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -50,14 +66,20 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                <div className="property__mark">
-                  <span>Premium</span>
-                </div>
+
+              {offer.isPremium ? <div className="property__mark">
+                                <span>Premium</span>
+                              </div> : ''
+                            }
+
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
                     {offer?.title}
                   </h1>
-                  <button className="property__bookmark-button button" type="button">
+                  <button onClick={(evt)=>{
+                    onBookmarkClick(evt, offer.id, offer.isFavorite);
+                  }}
+                   className={`property__bookmark-button button ${offer.isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
                     <svg className="property__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
@@ -69,7 +91,7 @@ function Property({offers}: {offers:OffersType}): JSX.Element {
                     <span style={{width: `${getRating(offer?.rating)}%`}} />
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="property__rating-value rating__value">4.8</span>
+                  <span className="property__rating-value rating__value">{offer?.rating}</span>
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">

@@ -1,21 +1,36 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate, Navigate } from 'react-router-dom';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import {OffersType} from '../../mocks/offers';
 import {getRating} from '../../functions';
-import Pages from '../../const';
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import {store} from '../../store/store';
-import {fetchFavoritesAction} from '../../store/api-actions';
+import Pages, {AuthorizationStatus} from '../../const';
+import {setFavoritesAction, fetchFavoritesAction} from '../../store/api-actions';
 
 function Favorites(): JSX.Element {
+  const navigate = useNavigate();
+  const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
+
   const {offersFavor} = useAppSelector((state) => state.loadFavor);
   const favoriteOffers = offersFavor.filter((offer)=> offer.isFavorite);
   const cities = Array.from(new Set(favoriteOffers.map((city) => city.city.name)));
-  console.log(offersFavor)
 
+  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorites:boolean) => {
+    evt.preventDefault();
+
+    const isFavor = !isFavorites
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(Pages.Login);
+
+    }
+    const promiseToFavor = new Promise((resolve) =>{
+      resolve(store.dispatch(setFavoritesAction({id, isFavor})))
+    })
+    promiseToFavor.then(()=>store.dispatch(fetchFavoritesAction()))
+  };
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -41,9 +56,10 @@ function Favorites(): JSX.Element {
                       <div className="favorites__places">
                         {offersFavor.filter((offer) => offer.city.name === city).map((offer) => (
                           <article key={offer.id} className="favorites__card place-card">
-                            <div className="place-card__mark">
-                              <span>Premium</span>
-                            </div>
+                            {offer.isPremium ? <div className="place-card__mark">
+                                              <span>Premium</span>
+                                            </div> : ''
+                                          }
                             <div className="favorites__image-wrapper place-card__image-wrapper">
                               <Link to="/">
                                 <img className="place-card__image" src={offer.previewImage} alt="Place" width={150}
@@ -60,6 +76,9 @@ function Favorites(): JSX.Element {
                                 <button
                                   className="place-card__bookmark-button place-card__bookmark-button--active button"
                                   type="button"
+                                  onClick={(evt)=>{
+                                    onBookmarkClick(evt, offer.id, offer.isFavorite);
+                                  }}
                                 >
                                   <svg className="place-card__bookmark-icon" width={18} height={19}>
                                     <use xlinkHref="#icon-bookmark"/>

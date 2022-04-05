@@ -12,6 +12,8 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 function App(): JSX.Element {
   const {isLoading, offers} = useAppSelector((state) => state.getOffers);
+  const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
+
   if (isLoading) {
   return (
     <LoadingScreen />
@@ -29,7 +31,9 @@ function App(): JSX.Element {
         />
         <Route path={Pages.Favor}
           element={
-            <PrivateRoute>
+            <PrivateRoute
+              status={authorizationStatus}
+            >
               <Favorites />
             </PrivateRoute>
           }
