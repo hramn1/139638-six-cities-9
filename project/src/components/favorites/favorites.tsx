@@ -7,11 +7,13 @@ import {useAppSelector} from '../../hooks';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import {store} from '../../store/store';
 import Pages, {AuthorizationStatus} from '../../const';
-import {setFavoritesAction, fetchFavoritesAction} from '../../store/api-actions';
+import {setFavoritesAction, fetchFavoritesAction, fetchOffersAction} from '../../store/api-actions';
 
 function Favorites(): JSX.Element {
   const navigate = useNavigate();
   const {authorizationStatus} = useAppSelector((state) => state.requireAuth);
+
+  const [idPage, setId] = React.useState(0);
 
   const {offersFavor} = useAppSelector((state) => state.loadFavor);
   const favoriteOffers = offersFavor.filter((offer)=> offer.isFavorite);
@@ -27,7 +29,7 @@ function Favorites(): JSX.Element {
     const promiseToFavor = new Promise((resolve) =>{
       resolve(store.dispatch(setFavoritesAction({id, isFavorite: !isFavorite})));
     });
-    promiseToFavor.then(()=>store.dispatch(fetchFavoritesAction()));
+    promiseToFavor.then(()=>store.dispatch(fetchFavoritesAction())).then(()=>store.dispatch(fetchOffersAction()));
   };
   return (
     <React.Fragment>
@@ -53,13 +55,17 @@ function Favorites(): JSX.Element {
                       </div>
                       <div className="favorites__places">
                         {offersFavor.filter((offer) => offer.city.name === city).map((offer) => (
-                          <article key={offer.id} className="favorites__card place-card">
+                          <article onMouseEnter={()=>{
+                            setId(offer.id);
+                          }}
+                          key={offer.id} className="favorites__card place-card"
+                          >
                             {offer.isPremium ?
                               <div className="place-card__mark">
                                 <span>Premium</span>
                               </div> : ''}
                             <div className="favorites__image-wrapper place-card__image-wrapper">
-                              <Link to="/">
+                              <Link to={`${Pages.Room}=${idPage}`}>
                                 <img className="place-card__image" src={offer.previewImage} alt="Place" width={150}
                                   height={110}
                                 />
