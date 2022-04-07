@@ -22,6 +22,7 @@ function Main({offers}: {offers:OffersType[]}): JSX.Element {
   };
   const cityOffers = offers.filter((offer)=>offer.city.name === cityState);
   const sortOffers = getSorting(sortState,cityOffers);
+
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -65,17 +66,21 @@ function Main({offers}: {offers:OffersType[]}): JSX.Element {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{cityOffers.length} places to stay in {cityState}</b>
-                <SortList
-                  sortName = {sortState}
-                />
+                <b className="places__found">{(cityOffers.length !== 0) ? `${cityOffers.length} places to stay in  ${cityState}` : 'No places to stay available'}</b>
+                {(cityOffers.length !== 0)? null : <p className="cities__status-description">We could not find any property available at the moment in {cityState}</p>}
+                {(cityOffers.length !== 0)?
+                  <SortList
+                    sortName = {sortState}
+                  /> : null}
                 <div className="cities__places-list places__list tabs__content">
                   <ListProperty offers = {sortOffers} />
                 </div>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapW offers = {cityOffers} />
+                  {(cityOffers.length !== 0)?
+                    <MapW offers = {cityOffers} />
+                    : null}
                 </section>
               </div>
             </div>

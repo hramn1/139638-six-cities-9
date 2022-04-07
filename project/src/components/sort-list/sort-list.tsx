@@ -19,7 +19,7 @@ function SortList({sortName}: {sortName:string | null}): JSX.Element{
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul onClick={fieldChangeHandle}  className={`${(sortList) ? 'places__options places__options--custom places__options--opened':'places__options places__options--custom'}`}>
+      <ul onClick={fieldChangeHandle}  className={`places__options places__options--custom ${(sortList)} ? 'places__options--opened' : '' }`}>
         <li className="places__option places__option--active" tabIndex={0}>Popular</li>
         <li className="places__option" tabIndex={0}>Price: low to high</li>
         <li className="places__option" tabIndex={0}>Price: high to low</li>

@@ -3,7 +3,7 @@ import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import Pages from '../../const';
 import Property from '../property/property';
-import Error404 from '../error404/error404';
+import ErrorNotFound from '../error-not-found/error-not-found';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks/index';
@@ -45,7 +45,7 @@ function App(): JSX.Element {
           }
         />
         <Route path='*'
-          element={<Error404/>}
+          element={<ErrorNotFound/>}
         />
         <Route path={Pages.Login}
           element={

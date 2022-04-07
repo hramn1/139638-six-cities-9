@@ -8,7 +8,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import MapW from '../map/map';
 import ListProperty from '../list-property/list-property';
 import {store} from '../../store/store';
-import  {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, SliceOfferNearby} from '../../const';
 import {fetchCommentsAction} from '../../store/api-actions';
 import Pages, {MAX_IMAGES_PER_PROPERTY} from '../../const';
 import {useAppSelector} from '../../hooks';
@@ -152,7 +152,7 @@ function Property({offers}: {offers:OffersType[]}): JSX.Element {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <ListProperty offers = {offersNearby.slice(0,3)} />
+                <ListProperty offers = {offersNearby.slice(SliceOfferNearby.start, SliceOfferNearby.end)} />
               </div>
             </section>
           </div>

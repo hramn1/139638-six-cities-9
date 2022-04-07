@@ -15,14 +15,14 @@ import { createAPI } from './../api';
 export const api = createAPI();
 
 const reducer = combineReducers({
-  cityReducer: cityReducer,
-  sortReducer: sortReducer,
-  chooseOffer: chooseOffer,
-  getOffers: getOffers,
-  getComments: getComments,
-  requireAuth: requireAuth,
-  loadFavor: loadFavor,
-  setReducer: setReducer,
+  cityReducer,
+  sortReducer,
+  chooseOffer,
+  getOffers,
+  getComments,
+  requireAuth,
+  loadFavor,
+  setReducer,
 });
 
 export const store = configureStore({reducer});

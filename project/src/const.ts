@@ -42,6 +42,11 @@ export enum Cities {
   Dusseldorf='Dusseldorf',
   Hamburg='Hamburg'
 }
+export enum SliceOfferNearby{
+  start = 0,
+  end=  3,
+}
+export const ratingReview = [5,4,3,2,1];
 
 export enum APIRoute {
   Offers = '/hotels',

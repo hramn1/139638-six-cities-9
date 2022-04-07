@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-function Error404(): JSX.Element {
+function ErrorNotFound(): JSX.Element {
   return (
     <React.Fragment>
       <div style={{display: 'none'}}>
@@ -22,4 +22,4 @@ function Error404(): JSX.Element {
   );
 }
 
-export default Error404;
+export default ErrorNotFound;
