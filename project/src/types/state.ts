@@ -5,6 +5,7 @@ export type TypeState = {
   sortState: string | null,
   chooseOffer: number | null,
   isLoading: boolean,
+  isSuccess: boolean,
   offers: OffersType[],
   comments: CommentType[],
   offersFavor: OffersType[],

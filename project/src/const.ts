@@ -30,9 +30,9 @@ export enum Month {
   November,
   December
 }
-export enum MailVerification {
-  rating = 0,
-  minLength = 50
+export enum ReviewVerification {
+  Rating = 0,
+  MinLength = 50
 }
 export enum Cities {
   Paris='Paris',
@@ -43,8 +43,8 @@ export enum Cities {
   Hamburg='Hamburg'
 }
 export enum SliceOfferNearby{
-  start = 0,
-  end=  3,
+  Start = 0,
+  End =  3,
 }
 export const ratingReview = [5,4,3,2,1];
 

@@ -36,9 +36,10 @@ export const addReviewAction = createAsyncThunk(
     Number(rating);
     const comment = review;
     try {
-      const { data } = await api.post<CommentType[]>(`${APIRoute.Comments}/${roomId.room}`, { comment, rating });
+      const { data } = await api.post<CommentType[]>(`${APIRoute.Comments}/${roomId.room}444444`, { comment, rating });
       store.dispatch(getComments(data));
     } catch (error) {
+      store.dispatch(getComments([]));
       errorHandle(error);
     }
   },
@@ -107,6 +108,7 @@ export const logoutAction = createAsyncThunk(
       dropToken();
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
       store.dispatch(setUserName(''));
+      store.dispatch(fetchOffersAction());
     } catch (error) {
       errorHandle(error);
     }

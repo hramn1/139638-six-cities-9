@@ -27,3 +27,24 @@ export const getSorting = (sort: string | null, offers: OffersType[])=>{
       return offers;
   }
 };
+export function validatePassword(password: string) {
+  const errors = [];
+  if (password.search(/[a-z]/i) < 0) {
+    errors.push("Пароль должен содержать букву");
+  }
+  if (password.search(/[0-9]/) < 0) {
+    errors.push("Пароль должен содержать цифры");
+  }
+  if(errors.length > 0){
+    alert(errors.join("\n"));
+    return false
+  }
+  return true
+}
+export function validateMail(mail: string) {
+  if (mail.search(/[a-z]/i) < 0 && mail.search(/[0-9]/) < 0 || mail.length === 0 || mail.search('@') < 0) {
+    alert("Логин должена содержать Email");
+    return false
+  }
+  return true
+}

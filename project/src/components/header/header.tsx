@@ -1,5 +1,5 @@
 import {Link, useNavigate} from 'react-router-dom';
-import React, {MouseEvent} from 'react';
+import {MouseEvent} from 'react';
 import Pages, {AuthorizationStatus} from '../../const';
 import {useAppSelector, useAppDispatch} from '../../hooks';
 import {store} from '../../store/store';

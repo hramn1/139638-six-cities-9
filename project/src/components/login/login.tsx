@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import Pages from  '../../const';
 import {AuthData} from '../../types/state';
+import {validatePassword, validateMail} from '../../functions';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -18,11 +19,14 @@ function Login(): JSX.Element {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
+
+      if(validatePassword(passwordRef.current.value) && validateMail(emailRef.current.value)){
       onSubmit({
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
       navigate(Pages.Main);
+    }
     }
   };
   return (

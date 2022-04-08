@@ -1,10 +1,9 @@
-import React from 'react';
 import {CommentType} from '../../types/state';
 import {getNormalDate, getRating} from '../../functions';
 
 function Review({review}: {review: CommentType}): JSX.Element {
   return(
-    <li key={review.user.id} className="reviews__item">
+    <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img className="reviews__avatar user__avatar" src={review.user.avatarUrl} alt="Reviews avatar" width={54} height={54} />

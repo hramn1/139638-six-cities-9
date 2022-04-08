@@ -1,4 +1,4 @@
-import React, {Fragment, MouseEvent} from 'react';
+import {Fragment, MouseEvent} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {OffersType} from '../../types/state';
 import Pages, {AuthorizationStatus} from '../../const';

@@ -1,10 +1,18 @@
 import React, {FormEvent, Fragment} from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
 import {NewReview} from '../../types/state';
-import {MailVerification, ratingReview} from '../../const';
+import {ReviewVerification, ratingReview} from '../../const';
 function FormComment(room: {room: number | undefined}): JSX.Element {
   const dispatch = useAppDispatch();
+  const {isSuccess} = useAppSelector((state) => state.getComments);
+  function changeFields() {
+    if(isSuccess){
+      setFormData({ rating: 0, review: '', roomId: {room: 0}})
+    } else(
+      alert('Форма не отправлена')
+    )
+  }
   const [formData, setFormData] = React.useState({
     rating: 0,
     review: '',
@@ -13,12 +21,15 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
   const fieldChangeHandle = (evt: React.SyntheticEvent) =>{
     const {name, value} = evt.currentTarget as HTMLInputElement;
     setFormData({...formData, [name]: value});
-    setIsButtonDisabled(!(formData.review.length >= MailVerification.minLength && formData.rating !== MailVerification.rating));
+    setIsButtonDisabled(!(formData.review.length >= ReviewVerification.MinLength && formData.rating !== ReviewVerification.Rating));
   };
+
   const [isButtonDisabled, setIsButtonDisabled] = React.useState<boolean>(true);
   const onSubmit = (newReview: NewReview) => {
     dispatch(addReviewAction(newReview));
+    changeFields();
   };
+
   const handleClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 
@@ -31,7 +42,6 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
         roomId,
       });
     }
-    setFormData({ rating: 0, review: '', roomId: {room: 0} });
   };
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -40,7 +50,9 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
         {Array(...ratingReview).map((it) =>(
           <Fragment key={it} >
             <input  onChange={fieldChangeHandle}
-              className="form__rating-input visually-hidden" name="rating" defaultValue={it} id={`${it}-stars`} type="radio"
+              className="form__rating-input visually-hidden"
+              checked={Number(formData.rating) === it}
+              name="rating" value={it} id={`${it}-stars`} type="radio"
             />
             <label htmlFor={`${it}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
               <svg className="form__star-image" width={37} height={33}>
@@ -52,7 +64,7 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
       </div>
       <textarea className="reviews__textarea form__textarea"
         onChange={fieldChangeHandle}
-        id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={''}
+        id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={formData.review}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
