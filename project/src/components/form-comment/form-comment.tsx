@@ -18,7 +18,7 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
     review: '',
     roomId: room,
   });
-  const fieldChangeHandle = (evt: React.SyntheticEvent) =>{
+  const handleFieldChange = (evt: React.SyntheticEvent) =>{
     const {name, value} = evt.currentTarget as HTMLInputElement;
     setFormData({...formData, [name]: value});
     setIsButtonDisabled(!(formData.review.length >= ReviewVerification.MinLength && formData.rating !== ReviewVerification.Rating));
@@ -27,10 +27,9 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
   const [isButtonDisabled, setIsButtonDisabled] = React.useState<boolean>(true);
   const onSubmit = (newReview: NewReview) => {
     dispatch(addReviewAction(newReview));
-    changeFields();
   };
 
-  const handleClick = (evt: FormEvent<HTMLButtonElement>) => {
+  const handleSubmitClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 
     const { rating, review, roomId } = formData;
@@ -49,7 +48,7 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
       <div className="reviews__rating-form form__rating">
         {Array(...ratingReview).map((it) =>(
           <Fragment key={it} >
-            <input  onChange={fieldChangeHandle}
+            <input  onChange={handleFieldChange}
               className="form__rating-input visually-hidden"
               checked={Number(formData.rating) === it}
               name="rating" value={it} id={`${it}-stars`} type="radio"
@@ -63,7 +62,7 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
         ))}
       </div>
       <textarea className="reviews__textarea form__textarea"
-        onChange={fieldChangeHandle}
+        onChange={handleFieldChange}
         id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={formData.review}
       />
       <div className="reviews__button-wrapper">
@@ -71,7 +70,7 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit"
-          onClick={handleClick}
+          onClick={handleSubmitClick}
           disabled={isButtonDisabled}
         >
           Submit

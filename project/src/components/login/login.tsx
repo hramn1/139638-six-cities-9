@@ -15,7 +15,7 @@ function Login(): JSX.Element {
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
   };
-  const handleClick = (evt: FormEvent<HTMLButtonElement>) => {
+  const handleButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
@@ -59,7 +59,7 @@ function Login(): JSX.Element {
                   <label className="visually-hidden">Password</label>
                   <input className="login__input form__input" type="password" name="password"  placeholder="Password" required                   ref={passwordRef} />
                 </div>
-                <button className="login__submit form__submit button" type="submit" onClick={handleClick}>Sign in</button>
+                <button className="login__submit form__submit button" type="submit" onClick={handleButtonClick}>Sign in</button>
               </form>
             </section>
             <section className="locations locations--login locations--current">

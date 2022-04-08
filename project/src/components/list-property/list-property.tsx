@@ -18,7 +18,7 @@ function ListProperty({offers}: {offers:OffersType[]}): JSX.Element {
   const handleMouseEnter = (offerId: number) =>{
     dispatch(chooseOffer(offerId));
   };
-  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorite:boolean) => {
+  const handleBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorite:boolean) => {
     evt.preventDefault();
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Pages.Login);
@@ -56,7 +56,7 @@ function ListProperty({offers}: {offers:OffersType[]}): JSX.Element {
                 <span className="place-card__price-text">&#47;&nbsp;night</span>
               </div>
               <button onClick={(evt)=>{
-                onBookmarkClick(evt, offer.id, offer.isFavorite);
+                handleBookmarkClick(evt, offer.id, offer.isFavorite);
               }}
               className={`place-card__bookmark-button button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button"
               >

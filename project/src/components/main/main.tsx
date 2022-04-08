@@ -15,7 +15,7 @@ function Main({offers}: {offers:OffersType[]}): JSX.Element {
   const {sortState} = useAppSelector((state) => state.sortReducer);
 
   const dispatch = useAppDispatch();
-  const handleClick = (evt: React.SyntheticEvent) =>{
+  const handleCityClick = (evt: React.SyntheticEvent) =>{
     const htmlElCity = evt.target as HTMLElement;
     const cityTitle = htmlElCity.textContent;
     dispatch(setCity(cityTitle));
@@ -51,7 +51,7 @@ function Main({offers}: {offers:OffersType[]}): JSX.Element {
                 {citiesList.map((city)=> (
                   <li
                     key={city}
-                    onClick={handleClick}
+                    onClick={handleCityClick}
                     className="locations__item"
                   >
                     <Link className={`${(city===cityState) ? 'locations__item-link tabs__item tabs__item--active':'locations__item-link tabs__item'}`} to='/'>

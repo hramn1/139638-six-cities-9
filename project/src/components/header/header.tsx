@@ -10,7 +10,7 @@ function Header () {
   const {userName} = useAppSelector((state) => state.requireAuth);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const onClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     const promiseToFavor = new Promise((resolve) =>{
       resolve(store.dispatch(fetchFavoritesAction()));
@@ -40,7 +40,7 @@ function Header () {
                 </li> :
                 <>
                   <li className="header__nav-item user">
-                    <Link onClick={onClick} className="header__nav-link header__nav-link--profile" to={Pages.Main}>
+                    <Link onClick={handleLinkClick} className="header__nav-link header__nav-link--profile" to={Pages.Main}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
                       <span className="header__user-name user__name">{userName}</span>

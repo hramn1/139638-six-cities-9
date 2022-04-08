@@ -19,7 +19,7 @@ function Favorites(): JSX.Element {
   const favoriteOffers = offersFavor.filter((offer)=> offer.isFavorite);
   const cities = Array.from(new Set(favoriteOffers.map((city) => city.city.name)));
 
-  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorite:boolean ) => {
+  const handleBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number, isFavorite:boolean ) => {
     evt.preventDefault();
 
     if (authorizationStatus !== AuthorizationStatus.Auth) {
@@ -81,7 +81,7 @@ function Favorites(): JSX.Element {
                                   className="place-card__bookmark-button place-card__bookmark-button--active button"
                                   type="button"
                                   onClick={(evt)=>{
-                                    onBookmarkClick(evt, offer.id, offer.isFavorite);
+                                    handleBookmarkClick(evt, offer.id, offer.isFavorite);
                                   }}
                                 >
                                   <svg className="place-card__bookmark-icon" width={18} height={19}>

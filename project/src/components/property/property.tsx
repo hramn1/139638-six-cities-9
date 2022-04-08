@@ -28,7 +28,7 @@ function Property({offers}: {offers:OffersType[]}): JSX.Element {
   const offersNearby = offers.filter((offerNearby)=> (
     offerNearby.city.name === offer?.city.name
   ));
-  const onBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number | undefined, isFavorite:boolean | undefined) => {
+  const handleBookmarkClick = (evt: MouseEvent<HTMLButtonElement>, id:number | undefined, isFavorite:boolean | undefined) => {
     evt.preventDefault();
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(Pages.Login);
@@ -70,7 +70,7 @@ function Property({offers}: {offers:OffersType[]}): JSX.Element {
                     {offer?.title}
                   </h1>
                   <button onClick={(evt)=>{
-                    onBookmarkClick(evt, offer?.id, offer?.isFavorite);
+                    handleBookmarkClick(evt, offer?.id, offer?.isFavorite);
                   }}
                   className={`property__bookmark-button button ${offer?.isFavorite ? 'property__bookmark-button--active' : ''}`}
                   type="button"
