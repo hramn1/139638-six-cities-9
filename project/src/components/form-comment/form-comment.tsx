@@ -1,18 +1,10 @@
 import React, {FormEvent, Fragment} from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
 import {NewReview} from '../../types/state';
 import {ReviewVerification, ratingReview} from '../../const';
 function FormComment(room: {room: number | undefined}): JSX.Element {
   const dispatch = useAppDispatch();
-  const {isSuccess} = useAppSelector((state) => state.getComments);
-  function changeFields() {
-    if(isSuccess){
-      setFormData({ rating: 0, review: '', roomId: {room: 0}})
-    } else(
-      alert('Форма не отправлена')
-    )
-  }
   const [formData, setFormData] = React.useState({
     rating: 0,
     review: '',
@@ -26,9 +18,9 @@ function FormComment(room: {room: number | undefined}): JSX.Element {
 
   const [isButtonDisabled, setIsButtonDisabled] = React.useState<boolean>(true);
   const onSubmit = (newReview: NewReview) => {
-    dispatch(addReviewAction(newReview));
-  };
+    dispatch(addReviewAction(newReview)).then(()=>setFormData({ rating: 0, review: '', roomId: room}));
 
+  };
   const handleSubmitClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 

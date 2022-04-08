@@ -17,16 +17,14 @@ function Login(): JSX.Element {
   };
   const handleButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-
     if (emailRef.current !== null && passwordRef.current !== null) {
-
       if(validatePassword(passwordRef.current.value) && validateMail(emailRef.current.value)){
-      onSubmit({
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      });
-      navigate(Pages.Main);
-    }
+        onSubmit({
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        });
+        navigate(Pages.Main);
+      }
     }
   };
   return (
@@ -53,14 +51,15 @@ function Login(): JSX.Element {
               <form className="login__form form" action="#" method="post">
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
-                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required                   ref={emailRef} />
+                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required ref={emailRef} />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" name="password"  placeholder="Password" required                   ref={passwordRef} />
+                  <input className="login__input form__input" type="password" name="password"  placeholder="Password" required ref={passwordRef} />
                 </div>
                 <button className="login__submit form__submit button" type="submit" onClick={handleButtonClick}>Sign in</button>
               </form>
+              <p className="login__errors" style={{color:'red'}}></p>
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">

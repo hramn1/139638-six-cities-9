@@ -3,7 +3,7 @@ import {OffersType} from '../../types/state';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, LEAFLET_ICON_SIZE, LEAFLET_ANCOR_SIZE} from '../../const';
+import {URL_MARKER, LEAFLET_SIZE} from '../../const';
 import {useAppSelector} from '../../hooks';
 
 function MapW ({offers}: {offers:OffersType[]}) {
@@ -12,16 +12,15 @@ function MapW ({offers}: {offers:OffersType[]}) {
   const cityMap = offers.map((coordinates) => coordinates.city.location)[0];
   const map = useMap(mapRef, cityMap);
 
-
   const defaultCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: LEAFLET_ICON_SIZE,
-    iconAnchor: LEAFLET_ANCOR_SIZE,
+    iconUrl: URL_MARKER.DEFAULT,
+    iconSize: LEAFLET_SIZE.ICON,
+    iconAnchor: LEAFLET_SIZE.ANCOR,
   });
   const currentCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: LEAFLET_ICON_SIZE,
-    iconAnchor: LEAFLET_ANCOR_SIZE,
+    iconUrl: URL_MARKER.CURRENT,
+    iconSize: LEAFLET_SIZE.ICON,
+    iconAnchor: LEAFLET_SIZE.ANCOR,
   });
 
   React.useEffect(() => {

@@ -65,13 +65,19 @@ export enum AuthorizationStatus {
 
 export const MAX_IMAGES_PER_PROPERTY = 6;
 
-export const LEAFLET_ICON_SIZE: PointExpression | undefined = [40, 40];
-
-export const LEAFLET_ANCOR_SIZE: PointExpression | undefined = [20,40];
-
+export const LEAFLET_SIZE: {
+  ICON: PointExpression | undefined,
+  ANCOR: PointExpression | undefined,
+} = {
+  ICON: [40, 40],
+  ANCOR: [20,40],
+};
 export const citiesList: string[] = Object.entries(Cities)
   .map(([value]) => (value));
 
-export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const URL_MARKER = {
+  DEFAULT: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+  CURRENT: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
+};
+
 export default Pages;
