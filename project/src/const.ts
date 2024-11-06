@@ -7,7 +7,7 @@ enum Pages {
   Room = '/offer/:id'
 }
 
-export const BACKEND_URL = 'https://9.react.pages.academy/six-cities';
+export const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 
 export enum HTTP_CODE {
@@ -49,14 +49,13 @@ export enum SliceOfferNearby{
 export const ratingReview = [5,4,3,2,1];
 
 export enum APIRoute {
-  Offers = '/hotels',
+  Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
   Nearby = '/nearby',
   Comments = '/comments',
   Favorite = '/favorite',
 }
-
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
